@@ -1,0 +1,62 @@
+{
+  "name": "starter-app-theme-worona",
+  "version": "1.0.0",
+  "description": "Starter theme for worona apps.",
+  "scripts": {
+    "start": "node node_modules/worona-packages/dist/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worona/starter-app-theme-worona.git"
+  },
+  "keywords": [
+    "theme",
+    "app",
+    "appearance",
+    "worona",
+    "package",
+    "worona",
+    "package"
+  ],
+  "author": "abel@worona.org",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "core-dashboard-worona": "1.2.29",
+    "eslint": "^3.6.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.3.0",
+    "worona-packages": "1.2.21"
+  },
+  "bugs": {
+    "url": "https://github.com/worona/starter-app-theme-worona/issues"
+  },
+  "homepage": "https://github.com/worona/starter-app-theme-worona#readme",
+  "worona": {
+    "authors": [
+      "abel@worona.org"
+    ],
+    "niceName": "Starter theme",
+    "slug": "StarterTheme",
+    "type": "theme",
+    "services": [
+      "dashboard",
+      "app"
+    ],
+    "namespace": "theme",
+    "menu": {
+      "services": [
+        "app"
+      ],
+      "category": "Themes",
+      "order": 10
+    },
+    "default": false,
+    "core": false,
+    "listed": true,
+    "deactivable": true,
+    "public": true
+  }
+}
