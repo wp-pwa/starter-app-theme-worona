@@ -45,7 +45,10 @@
       "dashboard",
       "app"
     ],
-    "namespace": "theme",
+    "namespace": {
+      "dashboard": "starterTheme",
+      "app": "theme"
+    },
     "menu": {
       "services": [
         "app"
