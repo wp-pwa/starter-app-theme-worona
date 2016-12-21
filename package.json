@@ -1,6 +1,6 @@
 {
   "name": "starter-app-theme-worona",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Starter theme for worona apps.",
   "scripts": {
     "start": "node node_modules/worona-packages/dist/start.js"
@@ -10,15 +10,13 @@
     "url": "git+https://github.com/worona/starter-app-theme-worona.git"
   },
   "keywords": [
+    "starter",
     "theme",
     "app",
-    "appearance",
-    "worona",
-    "package",
     "worona",
     "package"
   ],
-  "author": "abel@worona.org",
+  "author": "abel@worona.org, luis@worona.org",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
@@ -28,7 +26,7 @@
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
-    "worona-packages": "1.2.22"
+    "worona-packages": "1.3.1"
   },
   "bugs": {
     "url": "https://github.com/worona/starter-app-theme-worona/issues"
@@ -36,30 +34,30 @@
   "homepage": "https://github.com/worona/starter-app-theme-worona#readme",
   "worona": {
     "authors": [
-      "abel@worona.org"
+      "abel@worona.org",
+      "luis@worona.org"
     ],
-    "niceName": "Starter theme",
-    "slug": "StarterTheme",
-    "type": "theme",
-    "services": [
-      "dashboard",
-      "app"
-    ],
-    "namespace": {
-      "dashboard": "starterTheme",
-      "app": "theme"
+    "private": false,
+    "dashboard": {
+      "type": "extension",
+      "namespace": "starterTheme",
+      "default": true,
+      "menu": {
+        "app": {
+          "name": "Config Starter Theme",
+          "category": "Themes",
+          "order": 10
+        }
+      }
     },
-    "menu": {
-      "services": [
-        "app"
-      ],
-      "category": "Themes",
-      "order": 10
-    },
-    "default": false,
-    "core": false,
-    "listed": true,
-    "deactivable": true,
-    "public": true
+    "app": {
+      "type": "theme",
+      "namespace": "theme",
+      "default": true,
+      "name": "Starter Theme",
+      "description": "This the basic theme which comes by default.",
+      "image": "",
+      "public": true
+    }
   }
 }
