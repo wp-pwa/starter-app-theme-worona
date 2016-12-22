@@ -44,7 +44,7 @@
       "default": true,
       "menu": {
         "app": {
-          "name": "Config Starter Theme",
+          "niceName": "Config Starter Theme",
           "category": "Themes",
           "order": 10
         }
@@ -57,7 +57,7 @@
       "name": "Starter Theme",
       "description": "This the basic theme which comes by default.",
       "image": "",
-      "public": true
+      "listed": true
     }
   }
 }
