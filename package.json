@@ -18,7 +18,9 @@
   ],
   "author": "abel@worona.org, luis@worona.org",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "react-ios-switch": "^0.1.10"
+  },
   "devDependencies": {
     "core-dashboard-worona": "1.2.30",
     "eslint": "^3.6.1",
