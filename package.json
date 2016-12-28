@@ -19,8 +19,7 @@
   "author": "abel@worona.org, luis@worona.org",
   "license": "MIT",
   "dependencies": {
-    "react-color": "^2.10.0",
-    "react-ios-switch": "^0.1.10"
+    "react-color": "^2.10.0"
   },
   "devDependencies": {
     "core-dashboard-worona": "1.2.30",

@@ -2,8 +2,6 @@ import React from 'react';
 import { reduxForm, Field, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { ChromePicker } from 'react-color';
-import '!style!css!postcss!react-ios-switch/build/bundle.css';
-import Switch from './Switch';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
 
@@ -29,6 +27,7 @@ class StarterThemeFormClass extends React.Component {
     const chosenColor = this.props.chosenColor || initialValues.chosenColor;
     const Button = deps.elements.Button;
     const Icon = deps.elements.Icon;
+    const Switch = deps.elements.Switch;
     const cover = {
       position: 'fixed',
       top: '0px',
