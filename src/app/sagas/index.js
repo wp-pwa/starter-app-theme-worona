@@ -1,7 +1,7 @@
 import { fork } from 'redux-saga/effects';
 
 function* logSaga() {
-  console.log('test saga running!');
+  console.log('Starter Theme sagas running!');
 }
 
 export default function* testSagas() {
