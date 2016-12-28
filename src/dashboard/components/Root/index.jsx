@@ -1,26 +1,23 @@
 import React from 'react';
-import BaseSwitch from 'react-ios-switch';
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import '!style!css!postcss!react-ios-switch/build/bundle.css';
 import Switch from './Switch';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
 import * as deps from '../../deps';
 
-let StarterThemeForm = ({ pristine, waiting, displayCategoriesChecked, displayFeaturedImageChecked }) => {
+let StarterThemeForm = ({ pristine, waiting }) => {
   const Button = deps.elements.Button;
-  const Input = deps.elements.Input;
+  const Icon = deps.elements.Icon;
   return (
     <form>
       <p className="control">
-        <label className="label">Color</label>
+        <label className="label" htmlFor="color">Color</label>
       </p>
       <p className="control">
-        <a className="button is-medium">
-        <span className="icon is-small">
-          <i className="fa fa-paint-brush"></i>
-        </span>
-        <span>Change color</span>
-        </a>
+        <Button size="medium">
+          <Icon small code="paint-brush" />
+          <span>Change color</span>
+        </Button>
       </p>
       <Field
         name="displayFeaturedImage"
@@ -28,14 +25,14 @@ let StarterThemeForm = ({ pristine, waiting, displayCategoriesChecked, displayFe
         label="Display featured image?"
         type="checkbox"
       />
-      <br /><br />
+      <br />
       <Field
         name="displayCategories"
         component={Switch}
         label="Display categories menu?"
         type="checkbox"
       />
-      <br /><br />
+      <br />
       <Button
         color="primary"
         size="large"

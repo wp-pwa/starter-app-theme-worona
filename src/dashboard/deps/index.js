@@ -3,7 +3,7 @@ import { dep } from 'worona-deps';
 export const elements = {
   get Button() { return dep('theme', 'elements', 'Button'); },
   get Input() { return dep('theme', 'elements', 'Input'); },
-  get Checkbox() { return dep('theme', 'elements', 'Checkbox'); },
+  get Icon() { return dep('theme', 'elements', 'Icon'); },
   get RootContainer() { return dep('theme', 'elements', 'RootContainer'); },
 };
 
