@@ -8,7 +8,6 @@ import * as deps from '../../deps';
 
 let StarterThemeForm = ({ pristine, waiting, displayCategoriesChecked, displayFeaturedImageChecked }) => {
   const Button = deps.elements.Button;
-  const Checkbox = deps.elements.Checkbox;
   const Input = deps.elements.Input;
   return (
     <form>
@@ -27,14 +26,14 @@ let StarterThemeForm = ({ pristine, waiting, displayCategoriesChecked, displayFe
         name="displayFeaturedImage"
         component={Switch}
         label="Display featured image?"
-        checked={displayFeaturedImageChecked}
+        type="checkbox"
       />
       <br /><br />
       <Field
         name="displayCategories"
         component={Switch}
         label="Display categories menu?"
-        checked={displayCategoriesChecked}
+        type="checkbox"
       />
       <br /><br />
       <Button
@@ -58,8 +57,6 @@ StarterThemeForm.propTypes = {
 };
 
 const mapStateToFormProps = state => ({
-  displayCategoriesChecked: state.theme.reduxForm.StarterThemeForm && state.theme.reduxForm.StarterThemeForm.values && state.theme.reduxForm.StarterThemeForm.values.displayCategories,
-  displayFeaturedImageChecked: state.theme.reduxForm.StarterThemeForm && state.theme.reduxForm.StarterThemeForm.values && state.theme.reduxForm.StarterThemeForm.values.displayFeaturedImage,
   waiting: state.settings.savingSettings === 'starter-app-theme-worona',
 });
 
