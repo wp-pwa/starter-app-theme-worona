@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ChromePicker } from 'react-color';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
+import styles from './style.css';
 
 class StarterThemeFormClass extends React.Component {
 
@@ -47,11 +48,16 @@ class StarterThemeFormClass extends React.Component {
     ));
     return (
       <form onSubmit={submitThemeSettings}>
+        <label className="label" htmlFor="color">Color</label>
         <p className="control">
-          <label className="label" htmlFor="color">Color</label>
-        </p>
-        <p className="control">
-          <Button size="medium" onClick={this.toggleColorPicker} style={{ backgroundColor: chosenColor }}>
+          <span
+            id="colorSample"
+            className={`button is-medium is-disabled ${styles.colorSample}`}
+            style={{ backgroundColor: chosenColor }}
+          >
+            <span>&nbsp;&nbsp;&nbsp;</span>
+          </span>
+          <Button size="medium" onClick={this.toggleColorPicker} >
             <Icon small code="paint-brush" />
             <span>Change color</span>
           </Button>
@@ -73,14 +79,12 @@ class StarterThemeFormClass extends React.Component {
           label="Display featured image?"
           type="checkbox"
         />
-        <br />
         <Field
           name="displayCategories"
           component={Switch}
           label="Display categories menu?"
           type="checkbox"
         />
-        <br />
         <Button
           color="primary"
           size="large"
