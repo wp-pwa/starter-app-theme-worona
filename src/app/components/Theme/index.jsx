@@ -1,5 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as deps from '../../deps';
 
-export default () => (
-  <div>Theme!</div>
+const Theme = ({ theme, generalApp }) => (
+  <div>
+    <div>title: {generalApp.title}</div>
+    <div>numberOfPosts: {generalApp.numberOfPosts}</div>
+    <div>chosenColor: {theme.chosenColor}</div>
+    <div>displayFeaturedImage: {theme.displayFeaturedImage ? 'yes' : 'no'}</div>
+    <div>displayCategories: {theme.displayCategories ? 'yes' : 'no'}</div>
+  </div>
 );
+
+Theme.propTypes = {
+  generalApp: React.PropTypes.shape({
+    title: React.PropTypes.string.isRequired,
+    numberOfPosts: React.PropTypes.string.isRequired,
+  }).isRequired,
+  theme: React.PropTypes.shape({
+    chosenColor: React.PropTypes.string.isRequired,
+    displayFeaturedImage: React.PropTypes.bool.isRequired,
+    displayCategories: React.PropTypes.bool.isRequired,
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  generalApp: deps.selectorCreators.getSettings('generalApp')(state),
+  theme: deps.selectorCreators.getSettings('theme')(state),
+});
+
+export default connect(mapStateToProps)(Theme);
