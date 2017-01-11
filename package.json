@@ -48,7 +48,7 @@
       "default": true,
       "menu": {
         "app": {
-          "niceName": "Config Starter Theme",
+          "niceName": "Starter Theme",
           "category": "Themes",
           "order": 10
         }
