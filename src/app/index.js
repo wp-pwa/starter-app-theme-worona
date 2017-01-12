@@ -1,3 +1,4 @@
+import './style.sass';
 import * as sagas from './sagas';
 import * as reducers from './reducers';
 import * as components from './components';
