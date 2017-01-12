@@ -41,11 +41,9 @@
       "abel@worona.org",
       "luis@worona.org"
     ],
-    "private": false,
     "dashboard": {
       "type": "extension",
       "namespace": "starterTheme",
-      "default": true,
       "menu": {
         "app": {
           "niceName": "Starter Theme",
@@ -57,8 +55,7 @@
     "app": {
       "type": "theme",
       "namespace": "theme",
-      "default": true,
-      "name": "Starter Theme",
+      "niceName": "Starter Theme",
       "description": "This the basic theme which comes by default.",
       "image": "",
       "listed": true
