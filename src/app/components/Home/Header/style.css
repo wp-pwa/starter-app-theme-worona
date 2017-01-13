@@ -1,15 +1,7 @@
-html {
-  background-color: rgb(244, 244 , 244);
-}
-
 .menuWrapper{
   position: fixed;
   top: 0;
   width: 100%;
-}
-
-.nav-up {
-  top: -100px;
 }
 
 .whiteText{
@@ -21,18 +13,6 @@ html {
   display: block;
   text-align: center;
   color: white;
-  padding: 1em;
-}
-
-.menu-post {
-  display: block;
-  color: #404040;
-  padding: 1em;
-  background-color: white;
-}
-.menu-post-hidden {
-  visibility: hidden;
-  position: relative;
   padding: 1em;
 }
 
@@ -63,8 +43,4 @@ html {
 
 ::-webkit-scrollbar {
   display: none;
-}
-
-.content-wrapper {
-  padding: .5em;
 }
