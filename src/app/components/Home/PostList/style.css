@@ -2,6 +2,6 @@
   padding:10px;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.paddingTop10 {
+  padding-top: 10px;
 }

@@ -14,8 +14,7 @@ TopNav.propTypes = {
 };
 
 const mapStateToProps = state => ({ // eslint-disable-line
-  // title: deps.selectorCreators.getSetting('generalApp', 'title')(state),
-  title: 'Title',
+  title: deps.selectorCreators.getSetting('generalApp', 'title')(state),
 });
 
 export default connect(mapStateToProps)(TopNav);

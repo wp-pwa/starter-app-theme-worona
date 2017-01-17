@@ -4,21 +4,28 @@ import CatItem from './CatItem';
 import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
-const ScrollMenu = ({ categories }) => (
+const ScrollMenu = ({ categories, result, isReady }) => (
   <div className={styles.scrollMenu}>
-    {categories.map(category => (
-      <CatItem active={category.active} href={category.href}>{category.name}</CatItem>
+    {isReady && result.map(id => (
+      <CatItem key={id} active={false} href={categories[id].link}>
+        {categories[id].name}
+      </CatItem>
     ))}
   </div>
 );
 
 ScrollMenu.propTypes = {
-  categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  categories: React.PropTypes.shape({}),
+  result: React.PropTypes.arrayOf(React.PropTypes.number),
+  isReady: React.PropTypes.bool,
+  // displayCategories: React.PorpTypes.bool,
 };
 
 const mapStateToProps = state => ({ // eslint-disable-line
-  // categories: deps.selectorCreators.getSetting('connection', 'categories')(state),
-  categories: [{ href: '#', name: 'cat1', active: true }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }, { href: '#', name: 'cat1', active: false }],
+  isReady: deps.selectors.isCategoriesReady(state),
+  categories: deps.selectors.getCategoriesById(state),
+  result: deps.selectors.getCategoriesResult(state),
+  // displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
 export default connect(mapStateToProps)(ScrollMenu);

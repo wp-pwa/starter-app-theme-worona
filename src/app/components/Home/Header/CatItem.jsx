@@ -12,7 +12,7 @@ const CatItem = ({ children, href, active }) => {
 };
 
 CatItem.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: React.PropTypes.node,
   href: React.PropTypes.string.isRequired,
   active: React.PropTypes.bool,
 };

@@ -1,16 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router';
+import cn from 'classnames';
+import styles from './style.css';
 
-const CardImage = ({ img }) => (
-  <div className="card-image">
-    img
-  </div>
-);
+const CardImage = ({ featuredMedia }) => {
+  if (typeof featuredMediaiable !== 'undefined') {
+    return (
+      <div className="card-image">
+        <figure className="image is-4by3">
+          <img src={featuredMedia.source_url} alt={featuredMedia} />
+        </figure>
+      </div>
+    );
+  } else {
+    return null;
+  }
+};
 
 CardImage.propTypes = {
-  img: React.PropTypes.shape({
-    src: React.PropTypes.string,
-    alt: React.PropTypes.string,
+  featuredMedia: React.PropTypes.shape({
+    source_url: React.PropTypes.string,
+    alt_text: React.PropTypes.string,
   }),
 };
 
@@ -19,17 +29,13 @@ const CardContent = ({ title, date, author, categories }) => (
     <div className="media">
       <div className="media-content">
         <p className="title is-4">{ title }</p>
+        <p className={cn(styles.paddingTop10, 'subtitle is-6')} >
+          by {author.name} in { categories.name }
+        </p>
         <p className="subtitle is-6">
-          by {author} in { categories.map(cat => (
-            <Link to={cat.href}>#{cat.name}</Link>
-          ))}
+          <small>{date}</small>
         </p>
       </div>
-    </div>
-    <div className="content">
-      <p className="subtitle is-6">
-        <small>{date}</small>
-      </p>
     </div>
   </div>
 );
@@ -37,15 +43,22 @@ const CardContent = ({ title, date, author, categories }) => (
 CardContent.propTypes = {
   title: React.PropTypes.string,
   date: React.PropTypes.string,
-  author: React.PropTypes.string,
-  categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  author: React.PropTypes.shape({}),
+  // categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  categories: React.PropTypes.shape({}),
 };
 
-const PostItem = ({ post }) => (
-  <Link to={post.href}>
+const PostItem = ({ post, author, featuredMedia, categories }) => (
+  <Link to={post.link}>
     <div className="card is-fullwidth">
-      <CardImage src={post.img} />
-      <CardContent title={post.title} author={post.author} categories={post.categories} />
+      <CardImage src={featuredMedia} />
+      <CardContent
+        title={post.title.rendered}
+        author={author}
+        categories={categories}
+        featuredMedia={featuredMedia}
+        date={post.date}
+      />
     </div>
   </Link>
 );
@@ -54,6 +67,13 @@ PostItem.propTypes = {
   post: React.PropTypes.shape({
     href: React.PropTypes.string,
   }),
+  author: React.PropTypes.shape({}),
+  featuredMedia: React.PropTypes.shape({
+    source_url: React.PropTypes.string,
+    alt_text: React.PropTypes.string,
+  }),
+  //categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  categories: React.PropTypes.shape({}),
 };
 
 export default PostItem;

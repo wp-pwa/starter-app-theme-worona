@@ -12,8 +12,6 @@ const Header = () => (
 
 
 Header.propTypes = {
-  catName: React.PropTypes.string.isRequired,
-  href: React.PropTypes.string.isRequired,
 };
 
 export default Header;
