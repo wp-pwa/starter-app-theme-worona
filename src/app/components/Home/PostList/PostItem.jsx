@@ -5,8 +5,9 @@ import styles from './style.css';
 
 const CardImage = ({ featuredMedia }) => {
   let Card = null;
+  const display = (typeof featuredMedia !== 'undefined');
 
-  if (typeof featuredMedia !== 'undefined') {
+  if (display) {
     Card = (<div className="card-image">
       <figure className="image is-4by3">
         <img src={featuredMedia.source_url} alt={featuredMedia} />
