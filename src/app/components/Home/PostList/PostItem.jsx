@@ -4,17 +4,17 @@ import cn from 'classnames';
 import styles from './style.css';
 
 const CardImage = ({ featuredMedia }) => {
-  if (typeof featuredMediaiable !== 'undefined') {
-    return (
-      <div className="card-image">
-        <figure className="image is-4by3">
-          <img src={featuredMedia.source_url} alt={featuredMedia} />
-        </figure>
-      </div>
-    );
-  } else {
-    return null;
+  let Card = null;
+
+  if (typeof featuredMedia !== 'undefined') {
+    Card = (<div className="card-image">
+      <figure className="image is-4by3">
+        <img src={featuredMedia.source_url} alt={featuredMedia} />
+      </figure>
+    </div>);
   }
+
+  return Card;
 };
 
 CardImage.propTypes = {
@@ -56,7 +56,6 @@ const PostItem = ({ post, author, featuredMedia, categories }) => (
         title={post.title.rendered}
         author={author}
         categories={categories}
-        featuredMedia={featuredMedia}
         date={post.date}
       />
     </div>
