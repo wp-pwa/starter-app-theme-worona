@@ -1,8 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as deps from '../../deps';
 
-const Theme = ({ theme, generalApp, postsResult, posts, isReady }) => (
+const Theme = (
+  {
+    theme,
+    generalApp,
+    postsResult,
+    posts,
+    isPostsReady,
+    categoriesResult,
+    isCategoriesReady,
+    categories,
+  },
+) => (
   <div>
     <div>title: {generalApp.title}</div>
     <div>numberOfPosts: {generalApp.numberOfPosts}</div>
@@ -10,10 +22,28 @@ const Theme = ({ theme, generalApp, postsResult, posts, isReady }) => (
     <div>displayFeaturedImage: {theme.displayFeaturedImage ? 'yes' : 'no'}</div>
     <div>displayCategories: {theme.displayCategories ? 'yes' : 'no'}</div>
     <ul>
-      {isReady && postsResult.map(id =>
-        <li>{posts[id].title.rendered}</li>
-      )}
-      {!isReady && (<div>Loding...</div>)}
+      {isCategoriesReady && categoriesResult.map(
+            id => (
+              <li key={id}>
+                <Link to={categories[id].link}>
+                  {categories[id].name}
+                </Link>
+              </li>
+            ),
+          )}
+      {!isCategoriesReady && <div>Loding categories...</div>}
+    </ul>
+    <ul>
+      {isPostsReady && postsResult.map(
+            id => (
+              <li key={id}>
+                <Link to={posts[id].link}>
+                  {posts[id].title.rendered}
+                </Link>
+              </li>
+            ),
+          )}
+      {!isPostsReady && <div>Loding posts...</div>}
     </ul>
   </div>
 );
@@ -30,12 +60,17 @@ Theme.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  generalApp: deps.selectorCreators.getSettings('generalApp')(state),
-  theme: deps.selectorCreators.getSettings('theme')(state),
-  isReady: state.connection && state.connection.posts && state.connection.posts.isReady,
-  posts: state.connection && state.connection.posts && state.connection.posts.entities.post,
-  postsResult: state.connection && state.connection.posts && state.connection.posts.result,
-});
-
-export default connect(mapStateToProps)(Theme);
+const mapStateToProps = state =>
+  ({
+    generalApp: deps.selectorCreators.getSettings('generalApp')(state),
+    theme: deps.selectorCreators.getSettings('theme')(state),
+    isPostsReady: deps.selectors.isPostsReady(state),
+    posts: deps.selectors.getPostsById(state),
+    postsResult: deps.selectors.getPostsResult(state),
+    isCategoriesReady: deps.selectors.isCategoriesReady(state),
+    categories: deps.selectors.getCategoriesById(state),
+    categoriesResult: deps.selectors.getCategoriesResult(state),
+  });
+// posts: deps.selectors.getPostsById(state),
+// postsResult: deps.selectors.getPostsResult(state),
+export default connect(mapStateToProps)(Theme)
