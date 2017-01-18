@@ -4,7 +4,7 @@ import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
 const TopNav = ({ title, chosenColor }) => (
-  <div className={styles.headMenu} style={{ backgroundColor: `${chosenColor}`, fontWeight: 400 }}>
+  <div className={styles.headMenu} style={{ backgroundColor: `${chosenColor}` }}>
     <strong className={styles.whiteText}>{title}</strong>
   </div>
 );
