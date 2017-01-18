@@ -52,9 +52,7 @@ class StarterThemeFormClass extends React.Component {
             id="colorSample"
             className={`button is-medium is-disabled ${styles.colorSample}`}
             style={{ backgroundColor: chosenColor }}
-          >
-            <span />
-          </span>
+          />
           <Button size="medium" onClick={this.toggleColorPicker}>
             <Icon small code="paint-brush" />
             <span>Change color</span>
