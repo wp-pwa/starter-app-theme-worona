@@ -20,7 +20,9 @@ const PostList = ({ posts, result, isReady, authors, featuredMedias, displayFeat
             />
           </div>
         ))}
-        <LoadMore />
+        <div className="column is-one-quarter has-text-centered">
+          <LoadMore />
+        </div>
       </div>
     </div>
 );

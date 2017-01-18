@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import cn from 'classnames';
+import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
 const CardImage = ({ featuredMedia }) => {
@@ -25,7 +27,7 @@ CardImage.propTypes = {
   }),
 };
 
-const CardContent = ({ title, date, author, categories }) => (
+let CardContent = ({ title, date, author, categories, chosenColor }) => (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
@@ -33,7 +35,7 @@ const CardContent = ({ title, date, author, categories }) => (
         <p className={cn(styles.paddingTop10, 'subtitle is-6')} >
           by {author.name} in { categories.map((category, index) => (
             <span key={category.id}>
-              <Link to={category.link}>#{category.name}</Link>{index < categories.length - 1 && ', '}
+              <Link style={{ color: chosenColor }} to={category.link}>#{category.name}</Link>{index < categories.length - 1 && ', '}
             </span>
             ))}
         </p>
@@ -50,7 +52,15 @@ CardContent.propTypes = {
   date: React.PropTypes.string,
   author: React.PropTypes.shape({}),
   categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  chosenColor: React.PropTypes.string,
 };
+
+const mapStateToProps = state => ({ // eslint-disable-line
+  chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
+});
+
+CardContent = connect(mapStateToProps)(CardContent);
+
 
 const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
   <Link to={post.link}>
