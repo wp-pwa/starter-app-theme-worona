@@ -60,9 +60,9 @@ const Post = ({ id, posts, isReady }) => (
     { isReady && (
       <section className="section">
         <Title post={posts[id]} />
-        <div className="content is-medium">
-          { posts[id].content.rendered }
-        </div>
+        <div
+          style={{ overflow: 'hidden' }} className="content is-medium"
+          dangerouslySetInnerHTML={{ __html: posts[id].content.rendered }} />
       </section>
     )}
   </div>
