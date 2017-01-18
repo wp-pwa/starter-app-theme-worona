@@ -9,16 +9,9 @@ const NavBar = () => (
     <nav className="level is-mobile">
       <div className="level-left">
         <div className="level-item">
-          <Link to="/home" className="icon">
+          <Link to="/home" className="icon is-medium" style={{ color: '#363636' }}>
             <i className="fa fa-arrow-left" aria-hidden="true" />
           </Link>
-        </div>
-      </div>
-      <div className="level-right is-marginless">
-        <div className="level-item">
-          <span className="icon">
-            <i className="fa fa-share-alt" aria-hidden="true" />
-          </span>
         </div>
       </div>
     </nav>
@@ -58,11 +51,13 @@ const Post = ({ id, posts, isReady }) => (
   <div>
     <NavBar />
     { isReady && (
-      <section className="section">
+      <section className="section" style={{ paddingTop: '1rem' }} >
         <Title post={posts[id]} />
         <div
-          style={{ overflow: 'hidden' }} className="content is-medium"
-          dangerouslySetInnerHTML={{ __html: posts[id].content.rendered }} />
+          style={{ overflow: 'hidden' }}
+          className="content is-medium"
+          dangerouslySetInnerHTML={{ __html: posts[id].content.rendered }}
+        />
       </section>
     )}
   </div>
