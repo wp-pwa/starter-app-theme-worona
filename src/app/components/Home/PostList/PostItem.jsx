@@ -31,7 +31,11 @@ const CardContent = ({ title, date, author, categories }) => (
       <div className="media-content">
         <p className="title is-4">{ title }</p>
         <p className={cn(styles.paddingTop10, 'subtitle is-6')} >
-          by {author.name} in { categories.name }
+          by {author.name} in { categories.map((category, index) => (
+            <span key={category.id}>
+              <Link to={category.link}>#{category.name}</Link>{index < categories.length - 1 && ', '}
+            </span>
+            ))}
         </p>
         <p className="subtitle is-6">
           <small>{date}</small>
@@ -45,14 +49,13 @@ CardContent.propTypes = {
   title: React.PropTypes.string,
   date: React.PropTypes.string,
   author: React.PropTypes.shape({}),
-  // categories: React.PropTypes.arrayOf(React.PropTypes.object),
-  categories: React.PropTypes.shape({}),
+  categories: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
-const PostItem = ({ post, author, featuredMedia, categories }) => (
+const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
   <Link to={post.link}>
     <div className="card is-fullwidth">
-      <CardImage src={featuredMedia} />
+      {displayFeaturedImage && <CardImage featuredMedia={featuredMedia} />}
       <CardContent
         title={post.title.rendered}
         author={author}
@@ -68,12 +71,9 @@ PostItem.propTypes = {
     href: React.PropTypes.string,
   }),
   author: React.PropTypes.shape({}),
-  featuredMedia: React.PropTypes.shape({
-    source_url: React.PropTypes.string,
-    alt_text: React.PropTypes.string,
-  }),
-  //categories: React.PropTypes.arrayOf(React.PropTypes.object),
-  categories: React.PropTypes.shape({}),
+  featuredMedia: React.PropTypes.shape({}),
+  categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  displayFeaturedImage: React.PropTypes.bool,
 };
 
 export default PostItem;
