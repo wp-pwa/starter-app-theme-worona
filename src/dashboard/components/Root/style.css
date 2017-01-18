@@ -1,4 +1,4 @@
 .colorSample {
-  opacity: 1;
+  opacity: 1 !important;
   margin-right:10px;
 }

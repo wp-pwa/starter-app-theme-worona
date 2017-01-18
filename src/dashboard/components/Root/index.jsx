@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { reduxForm, Field, change } from 'redux-form';
 import { connect } from 'react-redux';
@@ -7,7 +8,6 @@ import * as selectors from '../../selectors';
 import styles from './style.css';
 
 class StarterThemeFormClass extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { showColorPicker: false };
@@ -24,28 +24,26 @@ class StarterThemeFormClass extends React.Component {
   }
 
   render() {
-    const { pristine, waiting, updateColorSelected, initialValues, handleSubmit, siteId } = this.props;
+    const {
+      pristine,
+      waiting,
+      updateColorSelected,
+      initialValues,
+      handleSubmit,
+      siteId,
+    } = this.props;
     const chosenColor = this.props.chosenColor || initialValues.chosenColor;
     const Button = deps.elements.Button;
     const Icon = deps.elements.Icon;
     const Switch = deps.elements.Switch;
-    const cover = {
-      position: 'fixed',
-      top: '0px',
-      right: '0px',
-      bottom: '0px',
-      left: '0px',
-    };
-    const popover = {
-      position: 'absolute',
-      zIndex: '2',
-    };
-    const submitThemeSettings = handleSubmit((values, dispatch) => (
-      dispatch(deps.actions.saveSettingsRequested(
-        values,
-        { siteId, name: 'starter-app-theme-worona' })
-      )
-    ));
+    const cover = { position: 'fixed', top: '0px', right: '0px', bottom: '0px', left: '0px' };
+    const popover = { position: 'absolute', zIndex: '2' };
+    const submitThemeSettings = handleSubmit(
+      (values, dispatch) =>
+        dispatch(
+          deps.actions.saveSettingsRequested(values, { siteId, name: 'starter-app-theme-worona' }),
+        ),
+    );
     return (
       <form onSubmit={submitThemeSettings}>
         <label className="label" htmlFor="color">Color</label>
@@ -54,25 +52,23 @@ class StarterThemeFormClass extends React.Component {
             id="colorSample"
             className={`button is-medium is-disabled ${styles.colorSample}`}
             style={{ backgroundColor: chosenColor }}
-          >
-            <span>&nbsp;&nbsp;&nbsp;</span>
-          </span>
-          <Button size="medium" onClick={this.toggleColorPicker} >
+          />
+          <Button size="medium" onClick={this.toggleColorPicker}>
             <Icon small code="paint-brush" />
             <span>Change color</span>
           </Button>
         </p>
-        { this.state.showColorPicker ?
-          <div style={popover}>
-            <div style={cover} onClick={this.hideColorPicker} />
-            <ChromePicker onChangeComplete={updateColorSelected} color={chosenColor} />
-          </div>
-        : null }
-        <Field
-          name="chosenColor"
-          component="input"
-          type="hidden"
-        />
+        {this.state.showColorPicker ? (
+              <div style={popover}>
+                <div style={cover} onClick={this.hideColorPicker} />
+                <ChromePicker
+                  onChangeComplete={updateColorSelected}
+                  color={chosenColor}
+                  disableAlpha
+                />
+              </div>
+            ) : null}
+        <Field name="chosenColor" component="input" type="hidden" />
         <Field
           name="displayFeaturedImage"
           component={Switch}
@@ -85,13 +81,7 @@ class StarterThemeFormClass extends React.Component {
           label="Display categories menu?"
           type="checkbox"
         />
-        <Button
-          color="primary"
-          size="large"
-          type="submit"
-          disabled={pristine}
-          loading={waiting}
-        >
+        <Button color="primary" size="large" type="submit" disabled={pristine} loading={waiting}>
           Save
         </Button>
       </form>
@@ -115,7 +105,7 @@ StarterThemeFormClass.propTypes = {
 
 const mapStateToFormProps = state => {
   const themeSettings = selectors.getThemeSettings(state);
-  return ({
+  return {
     initialValues: {
       chosenColor: themeSettings.chosenColor,
       displayCategories: themeSettings.displayCategories,
@@ -123,19 +113,20 @@ const mapStateToFormProps = state => {
     },
     waiting: state.settings.savingSettings === 'starter-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
-    chosenColor: state.theme.reduxForm.StarterThemeForm
-      && state.theme.reduxForm.StarterThemeForm.values
-      && state.theme.reduxForm.StarterThemeForm.values.chosenColor,
-  });
+    chosenColor: state.theme.reduxForm.StarterThemeForm &&
+      state.theme.reduxForm.StarterThemeForm.values &&
+      state.theme.reduxForm.StarterThemeForm.values.chosenColor,
+  };
 };
 
-const mapDispatchToFormProps = dispatch => ({
-  updateColorSelected: (color) => dispatch(change('StarterThemeForm', 'chosenColor', color.hex)),
-});
+const mapDispatchToFormProps = dispatch =>
+  ({
+    updateColorSelected: color => dispatch(change('StarterThemeForm', 'chosenColor', color.hex)),
+  });
 
 let StarterThemeForm = reduxForm({
   form: 'StarterThemeForm',
-  fields: ['chosenColor', 'displayCategories', 'displayFeaturedImage'],
+  fields: [ 'chosenColor', 'displayCategories', 'displayFeaturedImage' ],
   getFormState: state => state.theme.reduxForm,
   enableReinitialize: true,
 })(StarterThemeFormClass);
@@ -150,4 +141,4 @@ export default () => {
       <StarterThemeForm />
     </RootContainer>
   );
-};
+}
