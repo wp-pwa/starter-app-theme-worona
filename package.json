@@ -21,6 +21,7 @@
   "dependencies": {
     "bulma": "^0.3.0",
     "font-color-contrast": "^1.0.3",
+    "format-date": "^1.0.0",
     "react-color": "^2.10.0"
   },
   "devDependencies": {

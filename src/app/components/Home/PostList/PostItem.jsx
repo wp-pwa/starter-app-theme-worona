@@ -1,4 +1,5 @@
 import React from 'react';
+import formatDate from 'format-date';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import cn from 'classnames';
@@ -33,15 +34,18 @@ let CardContent = ({ title, date, author, categories, chosenColor }) => (
       <div className="media-content">
         <p className="title is-4">{ title }</p>
         <p className={cn(styles.paddingTop10, 'subtitle is-6')} >
-          by {author.name} in { categories.map((category, index) => (
+          by <span style={{ fontWeight: 500 }}>{author.name}</span>
+        </p>
+        <span className="subtitle is-6 is-pulled-left is-marginless">
+          { categories.map((category, index) => (
             <span key={category.id}>
-              <Link style={{ color: chosenColor }} to={category.link}>#{category.name}</Link>{index < categories.length - 1 && ', '}
+              <Link style={{ color: chosenColor }} to={category.link}>#{category.name}</Link>{' '}
             </span>
             ))}
-        </p>
-        <p className="subtitle is-6">
-          <small>{date}</small>
-        </p>
+        </span>
+        <span className="subtitle is-6 is-pulled-right is-marginless">
+          <small>{ formatDate('{day}/{month}/{year}', new Date(date)) }</small>
+        </span>
       </div>
     </div>
   </div>
