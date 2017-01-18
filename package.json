@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "bulma": "^0.3.0",
+    "font-color-contrast": "^1.0.3",
     "react-color": "^2.10.0"
   },
   "devDependencies": {

@@ -1,13 +1,17 @@
 import React from 'react';
+import fontColorContrast from 'font-color-contrast';
 import { connect } from 'react-redux';
 import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
-const TopNav = ({ title, chosenColor }) => (
-  <div className={styles.headMenu} style={{ backgroundColor: `${chosenColor}` }}>
-    <strong className={styles.whiteText}>{title}</strong>
-  </div>
-);
+const TopNav = ({ title, chosenColor }) => {
+  const contrastColor = fontColorContrast(chosenColor);
+
+  return (
+    <div className={styles.headMenu} style={{ backgroundColor: `${chosenColor}`, color: contrastColor }}>
+      {title}
+    </div>);
+};
 
 TopNav.propTypes = {
   title: React.PropTypes.string,

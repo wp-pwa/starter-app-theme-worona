@@ -10,7 +10,7 @@ const ScrollMenu = ({ categories, result, isReady, chosenColor, displayCategorie
   if ((typeof displayCategories !== 'undefined') && displayCategories) {
     scrollMenu = (<div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
       {isReady && result.map(id => (
-        <CatItem key={id} active={false} href={categories[id].link}>
+        <CatItem key={id} active={false} chosenColor={chosenColor} href={categories[id].link}>
           {categories[id].name}
         </CatItem>
       ))}
