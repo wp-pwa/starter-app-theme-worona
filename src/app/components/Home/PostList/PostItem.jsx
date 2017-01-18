@@ -37,7 +37,7 @@ let CardContent = ({ title, date, author, categories, chosenColor }) => (
           by <span style={{ fontWeight: 500 }}>{author.name}</span>
         </p>
         <span className="subtitle is-6 is-pulled-left is-marginless">
-          { categories.map((category, index) => (
+          { categories.map((category) => (
             <span key={category.id}>
               <Link style={{ color: chosenColor }} to={category.link}>#{category.name}</Link>{' '}
             </span>

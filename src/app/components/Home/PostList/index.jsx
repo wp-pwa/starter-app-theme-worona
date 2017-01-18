@@ -33,7 +33,7 @@ PostList.propTypes = {
   isReady: React.PropTypes.bool,
   authors: React.PropTypes.shape({}),
   featuredMedias: React.PropTypes.shape({}),
-  categories: React.PropTypes.arrayOf(React.PropTypes.number),
+  categories: React.PropTypes.shape({}),
   displayFeaturedImage: React.PropTypes.bool,
 };
 
