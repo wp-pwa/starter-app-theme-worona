@@ -4,3 +4,13 @@
   padding: 1em;
   background-color: white;
 }
+
+:global .content figure {
+    width: inherit !important;
+    height: inherit !important;
+}
+
+:global .content img {
+    width: inherit !important;
+    height: inherit !important;
+}
