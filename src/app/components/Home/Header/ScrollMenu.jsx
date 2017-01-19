@@ -9,15 +9,17 @@ const ScrollMenu = ({ categories, result, isReady, chosenColor, displayCategorie
 
   if ((typeof displayCategories !== 'undefined') && displayCategories) {
     scrollMenu = (<div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
-      {isReady && result.map(id => (
+      {isReady ? (result.map(id => (
         <CatItem key={id} active={false} chosenColor={chosenColor} href={categories[id].link}>
           {categories[id].name}
         </CatItem>
-      ))}
+      ))) :
+      (<span className={styles.catItem} styles={{ color: chosenColor }}>{'\u00A0'}</span>)
+      }
     </div>);
   }
 
-  return scrollMenu;
+  return (scrollMenu);
 };
 
 ScrollMenu.propTypes = {

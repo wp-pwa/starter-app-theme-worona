@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
 import LoadMore from './LoadMore';
+import Loader from './Loader';
 import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
@@ -9,7 +10,7 @@ const PostList = ({ posts, result, isReady, authors, featuredMedias, displayFeat
   categories }) => (
     <div className={styles.postList}>
       <div className="columns is-multiline">
-        {isReady && result.map(id => (
+        { isReady ? result.map(id => (
           <div key={id} className="column is-one-quarter">
             <PostItem
               post={posts[id]}
@@ -19,10 +20,12 @@ const PostList = ({ posts, result, isReady, authors, featuredMedias, displayFeat
               categories={posts[id].categories.map(catId => categories[catId])}
             />
           </div>
-        ))}
-        <div className="column is-one-quarter has-text-centered">
+        )) : (
+          <Loader />
+        )}
+        { isReady && (<div className="column is-one-quarter has-text-centered">
           <LoadMore />
-        </div>
+        </div>)}
       </div>
     </div>
 );
