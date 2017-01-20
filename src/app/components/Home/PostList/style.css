@@ -5,3 +5,7 @@
 .paddingTop10 {
   padding-top: 10px;
 }
+
+.borderLess {
+  border-color: transparent;
+}
