@@ -30,12 +30,3 @@ export const selectors = {
 export const actions = {
   get newCategoriesListRequested() { return dep('connection', 'actions', 'newCategoriesListRequested'); },
 };
-
-export const selectors = {
-  get isCategoriesReady() { return dep('connection', 'selectors', 'isCategoriesReady'); },
-  get isPostsReady() { return dep('connection', 'selectors', 'isPostsReady'); },
-  get getPostsById() { return dep('connection', 'selectors', 'getPostsById'); },
-  get getCategoriesById() { return dep('connection', 'selectors', 'getCategoriesById'); },
-  get getPostsResult() { return dep('connection', 'selectors', 'getPostsResult'); },
-  get getCategoriesResult() { return dep('connection', 'selectors', 'getCategoriesResult'); },
-};
