@@ -1,0 +1,32 @@
+.menuPost {
+  display: block;
+  color: #404040;
+  padding: 1em;
+  background-color: white;
+}
+
+:global .content figure {
+    width: inherit !important;
+    height: inherit !important;
+}
+
+:global .content img {
+    width: inherit !important;
+    height: inherit !important;
+}
+
+/* Legend under the images */
+:global .wp-caption-text {
+  text-align: center;
+  padding-bottom: 1em;
+  font-size: 13px;
+}
+
+/* Youtube videos */
+:global iframe {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: inherit;
+    height: inherit;
+}
