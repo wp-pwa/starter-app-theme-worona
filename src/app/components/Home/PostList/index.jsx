@@ -6,16 +6,16 @@ import Loader from './Loader';
 import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
-const PostList = ({ posts, result, isReady, authors, featuredMedias, displayFeaturedImage,
+const PostList = ({ posts, results, isReady, users, media, displayFeaturedImage,
   categories }) => (
     <div className={styles.postList}>
       <div className="columns is-multiline">
-        { isReady ? result.map(id => (
+        { isReady ? results.map(id => (
           <div key={id} className="column is-one-quarter">
             <PostItem
               post={posts[id]}
-              author={authors[posts[id].author]}
-              featuredMedia={featuredMedias[posts[id].featured_media]}
+              author={users[posts[id].author]}
+              featuredMedia={media[posts[id].featured_media]}
               displayFeaturedImage={displayFeaturedImage}
               categories={posts[id].categories.map(catId => categories[catId])}
             />
@@ -32,21 +32,21 @@ const PostList = ({ posts, result, isReady, authors, featuredMedias, displayFeat
 
 PostList.propTypes = {
   posts: React.PropTypes.shape({}),
-  result: React.PropTypes.arrayOf(React.PropTypes.number),
+  results: React.PropTypes.arrayOf(React.PropTypes.number),
   isReady: React.PropTypes.bool,
-  authors: React.PropTypes.shape({}),
-  featuredMedias: React.PropTypes.shape({}),
+  users: React.PropTypes.shape({}),
+  media: React.PropTypes.shape({}),
   categories: React.PropTypes.shape({}),
   displayFeaturedImage: React.PropTypes.bool,
 };
 
 const mapStateToProps = state => ({ // eslint-disable-line
-  posts: deps.selectors.getPostsById(state),
-  result: deps.selectors.getPostsResult(state),
-  isReady: deps.selectors.isPostsReady(state),
-  authors: deps.selectors.getAuthorsById(state),
-  featuredMedias: deps.selectors.getFeaturedMediasById(state),
-  categories: deps.selectors.getCategoriesById(state),
+  posts: deps.selectors.getPostsEntities(state),
+  results: deps.selectorCreators.getListResults('currentList')(state),
+  isReady: deps.selectorCreators.isListReady('currentList')(state),
+  users: deps.selectors.getUsersEntities(state),
+  media: deps.selectors.getMediaEntities(state),
+  categories: deps.selectors.getCategoriesEntities(state),
   displayFeaturedImage: deps.selectorCreators.getSetting('theme', 'displayFeaturedImage')(state),
 });
 
