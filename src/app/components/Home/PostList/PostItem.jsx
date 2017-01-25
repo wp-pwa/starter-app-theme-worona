@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import formatDate from 'format-date';
 import { connect } from 'react-redux';
@@ -42,7 +43,7 @@ let CardContent = (
     <div className="media">
       <div className="media-content">
         <Link to={`?p=${postId}`}>
-          <p className="title is-4">{title}</p>
+          <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
             {`${t('By')} `}<span style={{ fontWeight: 500 }}>{author.name}</span>
           </p>
