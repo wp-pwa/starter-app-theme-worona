@@ -6,7 +6,7 @@ import styles from './style.css';
 
 class ScrollMenu extends React.Component {
   componentWillMount() {
-    this.props.requestAllCategories();
+    this.props.requestAllCategories({ params: { per_page: 99 } });
   }
 
   render() {
