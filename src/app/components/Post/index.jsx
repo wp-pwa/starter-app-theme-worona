@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -49,7 +50,7 @@ Title.propTypes = {
   chosenColor: React.PropTypes.string,
 };
 
-const mapStateToTitleProps = state => ({ // eslint-disable-line
+const mapStateToTitleProps = state => ({
   users: deps.selectors.getUsersEntities(state),
   categories: deps.selectors.getCategoriesEntities(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
@@ -57,16 +58,16 @@ const mapStateToTitleProps = state => ({ // eslint-disable-line
 
 Title = connect(mapStateToTitleProps)(Title);
 
-const Post = ({ id, posts, isReady }) => (
+const Post = ({ post, isReady }) => (
   <div>
     <NavBar />
     { isReady && (
       <section className="section" style={{ paddingTop: '1rem' }} >
-        <Title post={posts[id]} />
+        <Title post={post} />
         <div
           style={{ overflow: 'hidden' }}
           className="content is-medium"
-          dangerouslySetInnerHTML={{ __html: posts[id].content.rendered }}
+          dangerouslySetInnerHTML={{ __html: post.content.rendered }}
         />
       </section>
     )}
@@ -74,18 +75,13 @@ const Post = ({ id, posts, isReady }) => (
 );
 
 Post.propTypes = {
-  id: React.PropTypes.number,
   isReady: React.PropTypes.bool,
-  posts: React.PropTypes.shape({}),
+  post: React.PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({ // eslint-disable-line
-  posts: deps.selectors.getPostsEntities(state),
-  result: deps.selectors.getCurrentSingle(state),
+const mapStateToProps = state => ({
+  post: deps.selectors.getCurrentSingle(state),
   isReady: deps.selectors.isCurrentSingleReady(state),
-  users: deps.selectors.getUsersEntities(state),
-  categories: deps.selectors.getCategoriesEntities(state),
-  chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
 });
 
 export default connect(mapStateToProps)(Post);
