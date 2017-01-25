@@ -1,15 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import { flow } from 'lodash/fp';
+import * as deps from '../../../deps'; // eslint-disable-line
 
-const LoadMore = ({ t }) => (
-  <a className="button is-outlined is-large">
+const LoadMore = ({ t, anotherPostsPageRequested }) => (
+  <button className="button is-outlined is-large" onClick={anotherPostsPageRequested}>
     {t('LoadMore')}
-  </a>
+  </button>
 );
 
 
 LoadMore.propTypes = {
   t: React.PropTypes.func.isRequired,
+  anotherPostsPageRequested: React.PropTypes.func,
 };
 
-export default translate('theme')(LoadMore);
+const mapDispatchToProps = dispatch => ({ // eslint-disable-line
+  anotherPostsPageRequested: () => dispatch(deps.actions.anotherPostsPageRequested()),
+});
+
+export default flow(
+  connect(null, mapDispatchToProps),
+  translate('theme')
+)(LoadMore);
