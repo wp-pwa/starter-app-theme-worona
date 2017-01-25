@@ -55,7 +55,7 @@ ScrollMenu.propTypes = {
   chosenColor: React.PropTypes.string,
   displayCategories: React.PropTypes.bool,
   requestAllCategories: React.PropTypes.func,
-  currentCategory: React.PropTypes.string,
+  currentCategory: React.PropTypes.number,
 };
 
 const mapStateToProps = state => ({
