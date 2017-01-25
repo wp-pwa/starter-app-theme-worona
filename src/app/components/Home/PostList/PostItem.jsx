@@ -6,17 +6,19 @@ import cn from 'classnames';
 import * as deps from '../../../deps';
 import styles from './style.css';
 
-const CardImage = ({ featuredMedia }) => {
+const CardImage = ({ featuredMedia, postId }) => {
   let Card = null;
   const display = typeof featuredMedia !== 'undefined';
 
   if (display) {
     Card = (
-      <div className="card-image">
-        <figure className="image is-4by3">
-          <img src={featuredMedia.source_url} alt={featuredMedia} />
-        </figure>
-      </div>
+      <Link to={`?p=${postId}`}>
+        <div className="card-image">
+          <figure className="image is-4by3">
+            <img src={featuredMedia.source_url} alt={featuredMedia} />
+          </figure>
+        </div>
+      </Link>
     );
   }
 
@@ -28,16 +30,19 @@ CardImage.propTypes = {
     source_url: React.PropTypes.string,
     alt_text: React.PropTypes.string,
   }),
+  postId: React.PropTypes.number.isRequired,
 };
 
-let CardContent = ({ title, date, author, categories, chosenColor }) => (
+let CardContent = ({ title, date, author, categories, chosenColor, postId }) => (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
-        <p className="title is-4">{title}</p>
-        <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-          by <span style={{ fontWeight: 500 }}>{author.name}</span>
-        </p>
+        <Link to={`?p=${postId}`}>
+          <p className="title is-4">{title}</p>
+          <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
+            by <span style={{ fontWeight: 500 }}>{author.name}</span>
+          </p>
+        </Link>
         <span className="subtitle is-6 is-pulled-left is-marginless">
           {categories.map(category => (
             <span key={category.id}>
@@ -62,6 +67,7 @@ CardContent.propTypes = {
   author: React.PropTypes.shape({}),
   categories: React.PropTypes.arrayOf(React.PropTypes.object),
   chosenColor: React.PropTypes.string,
+  postId: React.PropTypes.number,
 };
 
 const mapStateToProps = state => ({
@@ -71,17 +77,16 @@ const mapStateToProps = state => ({
 CardContent = connect(mapStateToProps)(CardContent);
 
 const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
-  <Link to={`?p=${post.id}`}>
-    <div className="card is-fullwidth">
-      {displayFeaturedImage && <CardImage featuredMedia={featuredMedia} />}
-      <CardContent
-        title={post.title.rendered}
-        author={author}
-        categories={categories}
-        date={post.date}
-      />
-    </div>
-  </Link>
+  <div className="card is-fullwidth">
+    {displayFeaturedImage && <CardImage featuredMedia={featuredMedia} postId={post.id} />}
+    <CardContent
+      postId={post.id}
+      title={post.title.rendered}
+      author={author}
+      categories={categories}
+      date={post.date}
+    />
+  </div>
 );
 
 PostItem.propTypes = {
