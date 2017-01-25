@@ -1,6 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
-import styles from './style.css';
 
 const Loader = () => (
   <div className="container">
