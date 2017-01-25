@@ -29,12 +29,12 @@ const MapNavBarStatetoProps = () => ({
 
 NavBar = connect(MapNavBarStatetoProps)(NavBar);
 
-let Title = ({ post, categories, users, chosenColor }) => (
+let Title = ({ post, categories, users, chosenColor, displayCategories }) => (
   <div className="content is-medium">
     <h1>{post.title.rendered}</h1>
     <h6>
       By <span style={{ fontWeight: 600 }}>{users[post.author].name} </span>
-      in { post.categories.map(category => (
+      { displayCategories && post.categories.map(category => (
         <span key={category}>
           <Link style={{ color: chosenColor }} to={`?cat=${categories[category].id}`}>#{categories[category].name}</Link>{' '}
         </span>
@@ -48,12 +48,14 @@ Title.propTypes = {
   categories: React.PropTypes.shape({}),
   users: React.PropTypes.shape({}),
   chosenColor: React.PropTypes.string,
+  displayCategories: React.PropTypes.bool,
 };
 
 const mapStateToTitleProps = state => ({
   users: deps.selectors.getUsersEntities(state),
   categories: deps.selectors.getCategoriesEntities(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
+  displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
 Title = connect(mapStateToTitleProps)(Title);
