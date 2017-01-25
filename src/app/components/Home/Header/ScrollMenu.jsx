@@ -24,11 +24,16 @@ class ScrollMenu extends React.Component {
         <div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
           {
             isReady ? <div>
-                <CatItem key={0} active={false} chosenColor={chosenColor} url={''}>
+                <CatItem key={0} active={!currentCategory} chosenColor={chosenColor} url={''}>
                   Home
                 </CatItem>
                 {result.map(id => (
-                  <CatItem key={id} active={false} chosenColor={chosenColor} url={`?cat=${id}`}>
+                  <CatItem
+                    key={id}
+                    active={currentCategory === id}
+                    chosenColor={chosenColor}
+                    url={`?cat=${id}`}
+                  >
                     {categories[id].name}
                   </CatItem>
                 ))}
@@ -59,7 +64,7 @@ const mapStateToProps = state => ({
   result: deps.selectorCreators.getListResults('allCategories')(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
-  currentCategory: deps.selectors.getURLQueries(state).cat,
+  currentCategory: parseInt(deps.selectors.getURLQueries(state).cat, 10),
 });
 
 const mapDispatchToProps = dispatch => ({
