@@ -9,9 +9,9 @@ let NavBar = ({ goBack }) => (
     <nav className="level is-mobile">
       <div className="level-left">
         <div className="level-item">
-          <Link to={goBack()} className="icon is-medium" style={{ color: '#363636' }}>
+          <button onClick={goBack} className="icon is-medium" style={{ color: '#363636' }}>
             <i className="fa fa-arrow-left" aria-hidden="true" />
-          </Link>
+          </button>
         </div>
       </div>
     </nav>
