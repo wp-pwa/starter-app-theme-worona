@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as deps from '../../../deps'; // eslint-disable-line
+import * as deps from '../../deps'; // eslint-disable-line
 import styles from './style.css';
 
-const NavBar = () => (
+let NavBar = ({ goBack }) => (
   <div className={styles.menuPost}>
     <nav className="level is-mobile">
       <div className="level-left">
         <div className="level-item">
-          <Link to="/home" className="icon is-medium" style={{ color: '#363636' }}>
+          <Link to={goBack()} className="icon is-medium" style={{ color: '#363636' }}>
             <i className="fa fa-arrow-left" aria-hidden="true" />
           </Link>
         </div>
@@ -18,14 +18,24 @@ const NavBar = () => (
   </div>
 );
 
-let Title = ({ post, categories, authors, chosenColor }) => (
+NavBar.propTypes = {
+  goBack: React.PropTypes.func,
+}
+
+const MapNavBarStatetoProps = () => ({
+  goBack: deps.libs.goBack,
+});
+
+NavBar = connect(MapNavBarStatetoProps)(NavBar);
+
+let Title = ({ post, categories, users, chosenColor }) => (
   <div className="content is-medium">
     <h1>{post.title.rendered}</h1>
     <h6>
-      By <span style={{ fontWeight: 600 }}>{authors[post.author].name} </span>
-      in { post.categories.map((category) => (
+      By <span style={{ fontWeight: 600 }}>{users[post.author].name} </span>
+      in { post.categories.map(category => (
         <span key={category}>
-          <Link style={{ color: chosenColor }} to={categories[category].link}>#{categories[category].name}</Link>{' '}
+          <Link style={{ color: chosenColor }} to={`?cat=${categories[category].id}`}>#{categories[category].name}</Link>{' '}
         </span>
       ))}
     </h6>
@@ -35,13 +45,13 @@ let Title = ({ post, categories, authors, chosenColor }) => (
 Title.propTypes = {
   post: React.PropTypes.shape({}),
   categories: React.PropTypes.shape({}),
-  authors: React.PropTypes.shape({}),
+  users: React.PropTypes.shape({}),
   chosenColor: React.PropTypes.string,
 };
 
 const mapStateToTitleProps = state => ({ // eslint-disable-line
-  authors: deps.selectors.getAuthorsById(state),
-  categories: deps.selectors.getCategoriesById(state),
+  users: deps.selectors.getUsersEntities(state),
+  categories: deps.selectors.getCategoriesEntities(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
 });
 
@@ -70,11 +80,11 @@ Post.propTypes = {
 };
 
 const mapStateToProps = state => ({ // eslint-disable-line
-  posts: deps.selectors.getPostsById(state),
-  result: deps.selectors.getPostsResult(state),
-  isReady: deps.selectors.isPostsReady(state),
-  authors: deps.selectors.getAuthorsById(state),
-  categories: deps.selectors.getCategoriesById(state),
+  posts: deps.selectors.getPostsEntities(state),
+  result: deps.selectors.getCurrentSingle(state),
+  isReady: deps.selectors.isCurrentSingleReady(state),
+  users: deps.selectors.getUsersEntities(state),
+  categories: deps.selectors.getCategoriesEntities(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
 });
 

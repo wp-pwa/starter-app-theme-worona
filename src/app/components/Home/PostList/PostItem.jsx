@@ -39,7 +39,7 @@ let CardContent = ({ title, date, author, categories, chosenColor }) => (
         <span className="subtitle is-6 is-pulled-left is-marginless">
           { categories.map((category) => (
             <span key={category.id}>
-              <Link style={{ color: chosenColor }} to={category.link}>#{category.name}</Link>{' '}
+              <Link style={{ color: chosenColor }} to={`?cat=${category.id}`} >#{category.name}</Link>{' '}
             </span>
             ))}
         </span>
@@ -67,7 +67,7 @@ CardContent = connect(mapStateToProps)(CardContent);
 
 
 const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
-  <Link to={post.link}>
+  <Link to={`?p=${post.id}`}>
     <div className="card is-fullwidth">
       {displayFeaturedImage && <CardImage featuredMedia={featuredMedia} />}
       <CardContent
