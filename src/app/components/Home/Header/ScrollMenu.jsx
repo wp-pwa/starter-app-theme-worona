@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { flow } from 'lodash/fp';
+import { translate } from 'react-i18next';
 import CatItem from './CatItem';
 import * as deps from '../../../deps';
 import styles from './style.css';
 
 class ScrollMenu extends React.Component {
   componentWillMount() {
-    this.props.requestAllCategories();
+    this.props.requestAllCategories({ params: { per_page: 99 } });
   }
 
   render() {
@@ -18,6 +20,7 @@ class ScrollMenu extends React.Component {
       chosenColor,
       displayCategories,
       currentCategory,
+      t,
     } = this.props;
     if (typeof displayCategories !== 'undefined' && displayCategories) {
       scrollMenu = (
@@ -25,7 +28,7 @@ class ScrollMenu extends React.Component {
           {
             isReady ? <div>
                 <CatItem key={0} active={!currentCategory} chosenColor={chosenColor} url={''}>
-                  Home
+                  {t('Home')}
                 </CatItem>
                 {result.map(id => (
                   <CatItem
@@ -55,7 +58,8 @@ ScrollMenu.propTypes = {
   chosenColor: React.PropTypes.string,
   displayCategories: React.PropTypes.bool,
   requestAllCategories: React.PropTypes.func,
-  currentCategory: React.PropTypes.string,
+  currentCategory: React.PropTypes.number,
+  t: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -72,4 +76,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(deps.actions.newCategoriesListRequested({ name: 'allCategories' })),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScrollMenu);
+export default flow(
+  connect(mapStateToProps, mapDispatchToProps),
+  translate('theme'),
+)(ScrollMenu);
