@@ -2,6 +2,8 @@ import React from 'react';
 import formatDate from 'format-date';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { translate } from 'react-i18next';
+import { flow } from 'lodash/fp';
 import cn from 'classnames';
 import * as deps from '../../../deps';
 import styles from './style.css';
@@ -33,26 +35,32 @@ CardImage.propTypes = {
   postId: React.PropTypes.number.isRequired,
 };
 
-let CardContent = ({ title, date, author, categories, chosenColor, postId, displayCategories }) => (
+let CardContent = (
+  { title, date, author, categories, chosenColor, postId, displayCategories, t },
+) => (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
         <Link to={`?p=${postId}`}>
           <p className="title is-4">{title}</p>
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            by <span style={{ fontWeight: 500 }}>{author.name}</span>
+            {`${t('By')} `}<span style={{ fontWeight: 500 }}>{author.name}</span>
           </p>
         </Link>
-        {displayCategories && (<span className="subtitle is-6 is-pulled-left is-marginless">
-          {categories.map(category => (
-            <span key={category.id}>
-              <Link style={{ color: chosenColor }} to={`?cat=${category.id}`}>
-                #{category.name}
-              </Link>
-              {' '}
-            </span>
-          ))}
-        </span>)}
+        {
+          displayCategories && (
+              <span className="subtitle is-6 is-pulled-left is-marginless">
+                {categories.map(category => (
+                  <span key={category.id}>
+                    <Link style={{ color: chosenColor }} to={`?cat=${category.id}`}>
+                      #{category.name}
+                    </Link>
+                    {' '}
+                  </span>
+                ))}
+              </span>
+            )
+        }
         <span className="subtitle is-6 is-pulled-right is-marginless">
           <small>{formatDate('{day}/{month}/{year}', new Date(date))}</small>
         </span>
@@ -69,6 +77,7 @@ CardContent.propTypes = {
   chosenColor: React.PropTypes.string,
   postId: React.PropTypes.number,
   displayCategories: React.PropTypes.bool,
+  t: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -76,7 +85,10 @@ const mapStateToProps = state => ({
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
-CardContent = connect(mapStateToProps)(CardContent);
+CardContent = flow(
+  connect(mapStateToProps),
+  translate('theme'),
+)(CardContent);
 
 const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
   <div className="card is-fullwidth">

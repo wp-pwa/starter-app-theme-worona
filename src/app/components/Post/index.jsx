@@ -2,6 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { translate } from 'react-i18next';
+import { flow } from 'lodash/fp';
 import * as deps from '../../deps'; // eslint-disable-line
 import styles from './style.css';
 
@@ -29,11 +31,11 @@ const MapNavBarStatetoProps = () => ({
 
 NavBar = connect(MapNavBarStatetoProps)(NavBar);
 
-let Title = ({ post, categories, users, chosenColor, displayCategories }) => (
+let Title = ({ post, categories, users, chosenColor, displayCategories, t }) => (
   <div className="content is-medium">
     <h1>{post.title.rendered}</h1>
     <h6>
-      By <span style={{ fontWeight: 600 }}>{users[post.author].name} </span>
+      {`${t('By')} `}<span style={{ fontWeight: 600 }}>{users[post.author].name} </span>
       { displayCategories && post.categories.map(category => (
         <span key={category}>
           <Link style={{ color: chosenColor }} to={`?cat=${categories[category].id}`}>#{categories[category].name}</Link>{' '}
@@ -49,6 +51,7 @@ Title.propTypes = {
   users: React.PropTypes.shape({}),
   chosenColor: React.PropTypes.string,
   displayCategories: React.PropTypes.bool,
+  t: React.PropTypes.func.isRequired,
 };
 
 const mapStateToTitleProps = state => ({
@@ -58,7 +61,10 @@ const mapStateToTitleProps = state => ({
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
-Title = connect(mapStateToTitleProps)(Title);
+Title = flow(
+  connect(mapStateToTitleProps),
+  translate('theme'),
+)(Title);
 
 const Post = ({ post, isReady }) => (
   <div>
