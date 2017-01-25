@@ -6,8 +6,7 @@ import Loader from './Loader';
 import * as deps from '../../../deps'; // eslint-disable-line
 import styles from './style.css';
 
-const PostList = ({ posts, results, isReady, users, media, displayFeaturedImage,
-  categories }) => (
+const PostList = ({ posts, results, isReady, users, media, displayFeaturedImage, categories }) => (
     <div className={styles.postList}>
       <div className="columns is-multiline">
         { isReady ? results.map(id => (

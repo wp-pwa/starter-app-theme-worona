@@ -1,20 +1,25 @@
 import React from 'react';
-import cn from 'classnames';
-import styles from './style.css';
 
 const Loader = () => (
-  <section className="hero is-fullheight">
-    <div className="hero-body">
-      <div className="container">
-        <p className="has-text-centered">
-          <a className={cn('button is-loading is-large', styles.borderLess)}>Loading</a>
-        </p>
-        <h3 className="has-text-centered">
-          Loading posts...
-        </h3>
+  <div className="container">
+    <div className="columns">
+      <div className="column is-4 is-offset-4">
+        <div className="notification" style={{ backgroundColor: 'transparent' }}>
+          <div className="level is-mobile">
+            <div className="level-left">
+              Loading posts
+            </div>
+            <div className="level-right is-marginless">
+              <span
+                className="button is-loading is-warning"
+                style={{ border: 'transparent', backgroundColor: 'transparent' }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 );
 
 
