@@ -14,17 +14,32 @@ const CardImage = ({ featuredMedia, postId }) => {
   const display = typeof featuredMedia !== 'undefined';
 
   if (display) {
+    // In case there are no responsive images
+    let sourceUrl = featuredMedia.source_url;
+
+    // We turn the Object into an array sorted by width.
+    let responsiveImages = Object.values(featuredMedia.media_details.sizes);
+    responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
+
+    if (typeof responsiveImages !== 'undefined') {
+      // we take the first image that is bigger than the Window Width.
+      for ( var i in responsiveImages ) {
+        if (responsiveImages[i].width > window.innerWidth) {
+          sourceUrl = responsiveImages[i].source_url;
+          break;
+        }
+      }
+    }
     Card = (
       <Link to={`?p=${postId}`}>
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={featuredMedia.source_url} alt={featuredMedia} />
+            <img src={sourceUrl} alt={featuredMedia} />
           </figure>
         </div>
       </Link>
     );
   }
-
   return Card;
 };
 
