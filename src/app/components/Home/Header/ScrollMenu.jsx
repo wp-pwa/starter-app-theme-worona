@@ -20,7 +20,7 @@ class ScrollMenu extends React.Component {
             {categories[id].name}
           </CatItem>
         ))) :
-        (<span className={styles.catItem} styles={{ color: chosenColor }}>{'\u00A0'}</span>)
+        (<span className={styles.catItem} style={{ color: chosenColor }}>{'\u00A0'}</span>)
         }
       </div>);
     }
