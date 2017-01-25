@@ -25,8 +25,15 @@ export const selectors = {
   get getCategoriesEntities() { return dep('connection', 'selectors', 'getCategoriesEntities'); },
   get getPostsEntities() { return dep('connection', 'selectors', 'getPostsEntities'); },
   get getMediaEntities() { return dep('connection', 'selectors', 'getMediaEntities'); },
+  get getCurrentSingle() { return dep('connection', 'selectors', 'getCurrentSingle'); },
+  get isCurrentSingleReady() { return dep('connection', 'selectors', 'isCurrentSingleReady'); },
 };
 
 export const actions = {
   get newCategoriesListRequested() { return dep('connection', 'actions', 'newCategoriesListRequested'); },
+  get anotherPostsPageRequested() { return dep('connection', 'actions', 'anotherPostsPageRequested'); },
+};
+
+export const libs = {
+  get goBack() { return dep('router', 'libs', 'goBack'); },
 };

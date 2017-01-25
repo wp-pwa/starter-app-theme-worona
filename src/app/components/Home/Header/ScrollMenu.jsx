@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CatItem from './CatItem';
-import * as deps from '../../../deps'; // eslint-disable-line
+import * as deps from '../../../deps';
+// eslint-disable-line
 import styles from './style.css';
 
 class ScrollMenu extends React.Component {
@@ -13,18 +14,25 @@ class ScrollMenu extends React.Component {
     let scrollMenu = null;
     const { categories, result, isReady, chosenColor, displayCategories } = this.props;
 
-    if ((typeof displayCategories !== 'undefined') && displayCategories) {
-      scrollMenu = (<div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
-        {isReady ? (result.map(id => (
-          <CatItem key={id} active={false} chosenColor={chosenColor} href={categories[id].link}>
-            {categories[id].name}
-          </CatItem>
-        ))) :
-        (<span className={styles.catItem} styles={{ color: chosenColor }}>{'\u00A0'}</span>)
-        }
-      </div>);
+    if (typeof displayCategories !== 'undefined' && displayCategories) {
+      scrollMenu = (
+        <div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
+          {
+            isReady ? result.map(id => (
+                <CatItem
+                  key={id}
+                  active={false}
+                  chosenColor={chosenColor}
+                  id={id}
+                >
+                  {categories[id].name}
+                </CatItem>
+              )) : <span className={styles.catItem} style={{ color: chosenColor }}>{'\u00A0'}</span>
+          }
+        </div>
+      );
     }
-    return (scrollMenu);
+    return scrollMenu;
   }
 }
 
@@ -37,7 +45,8 @@ ScrollMenu.propTypes = {
   requestAllCategories: React.PropTypes.func,
 };
 
-const mapStateToProps = state => ({ // eslint-disable-line
+const mapStateToProps = state => ({
+  // eslint-disable-line
   isReady: deps.selectorCreators.isListReady('allCategories')(state),
   categories: deps.selectors.getCategoriesEntities(state),
   result: deps.selectorCreators.getListResults('allCategories')(state),
@@ -46,7 +55,8 @@ const mapStateToProps = state => ({ // eslint-disable-line
 });
 
 const mapDispatchToProps = dispatch => ({
-  requestAllCategories: () => dispatch(deps.actions.newCategoriesListRequested({ name: 'allCategories' })),
+  requestAllCategories: () =>
+    dispatch(deps.actions.newCategoriesListRequested({ name: 'allCategories' })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollMenu);
