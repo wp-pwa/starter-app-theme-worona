@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CatItem from './CatItem';
 import * as deps from '../../../deps';
-// eslint-disable-line
 import styles from './style.css';
 
 class ScrollMenu extends React.Component {
@@ -12,22 +11,35 @@ class ScrollMenu extends React.Component {
 
   render() {
     let scrollMenu = null;
-    const { categories, result, isReady, chosenColor, displayCategories } = this.props;
-
+    const {
+      categories,
+      result,
+      isReady,
+      chosenColor,
+      displayCategories,
+      currentCategory,
+    } = this.props;
     if (typeof displayCategories !== 'undefined' && displayCategories) {
       scrollMenu = (
         <div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
           {
-            isReady ? result.map(id => (
-                <CatItem
-                  key={id}
-                  active={false}
-                  chosenColor={chosenColor}
-                  id={id}
-                >
-                  {categories[id].name}
+            isReady ? <div>
+                <CatItem key={0} active={!currentCategory} chosenColor={chosenColor} url={''}>
+                  Home
                 </CatItem>
-              )) : <span className={styles.catItem} style={{ color: chosenColor }}>{'\u00A0'}</span>
+                {result.map(id => (
+                  <CatItem
+                    key={id}
+                    active={currentCategory === id}
+                    chosenColor={chosenColor}
+                    url={`?cat=${id}`}
+                  >
+                    {categories[id].name}
+                  </CatItem>
+                ))}
+              </div> : <span className={styles.catItem} style={{ color: chosenColor }}>
+                {'\u00A0'}
+              </span>
           }
         </div>
       );
@@ -43,15 +55,16 @@ ScrollMenu.propTypes = {
   chosenColor: React.PropTypes.string,
   displayCategories: React.PropTypes.bool,
   requestAllCategories: React.PropTypes.func,
+  currentCategory: React.PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  // eslint-disable-line
   isReady: deps.selectorCreators.isListReady('allCategories')(state),
   categories: deps.selectors.getCategoriesEntities(state),
   result: deps.selectorCreators.getListResults('allCategories')(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
+  currentCategory: parseInt(deps.selectors.getURLQueries(state).cat, 10),
 });
 
 const mapDispatchToProps = dispatch => ({
