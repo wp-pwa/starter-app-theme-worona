@@ -4,8 +4,8 @@ import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import * as deps from '../../../deps'; // eslint-disable-line
 
-let LoadMore = ({ t, anotherPostsPageRequested }) => (
-  <button className="button is-outlined is-large" onClick={anotherPostsPageRequested()}>
+const LoadMore = ({ t, anotherPostsPageRequested }) => (
+  <button className="button is-outlined is-large" onClick={anotherPostsPageRequested}>
     {t('LoadMore')}
   </button>
 );
@@ -20,9 +20,7 @@ const mapDispatchToProps = dispatch => ({ // eslint-disable-line
   anotherPostsPageRequested: () => dispatch(deps.actions.anotherPostsPageRequested()),
 });
 
-LoadMore = flow(
-  connect(mapDispatchToProps),
+export default flow(
+  connect(null, mapDispatchToProps),
   translate('theme')
 )(LoadMore);
-
-export default LoadMore;
