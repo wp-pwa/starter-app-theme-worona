@@ -14,5 +14,6 @@
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": false }],
     "generator-star-spacing": 0,
     "no-mixed-operators": 0,
+    "no-confusing-arrow": 0
   }
 }
