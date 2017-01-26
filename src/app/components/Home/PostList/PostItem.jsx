@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import cn from 'classnames';
 import * as deps from '../../../deps';
+import * as libs from '../../../libs';
 import styles from './style.css';
 
 class CardImage extends React.Component {
@@ -70,7 +71,7 @@ let CardContent = (
               <span className="subtitle is-6 is-pulled-left is-marginless">
                 {categories.map(category => (
                   <span key={category.id}>
-                    <Link style={{ color: chosenColor }} to={`?cat=${category.id}`}>
+                    <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
                       #{category.name}
                     </Link>
                     {' '}
