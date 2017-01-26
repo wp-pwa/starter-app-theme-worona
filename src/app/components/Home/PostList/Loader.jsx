@@ -1,13 +1,14 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 
-const Loader = () => (
+const Loader = ({ t }) => (
   <div className="container">
     <div className="columns">
       <div className="column is-4 is-offset-4">
         <div className="notification" style={{ backgroundColor: 'transparent' }}>
           <div className="level is-mobile">
             <div className="level-left">
-              Loading posts
+              {t('LoadingPosts')}
             </div>
             <div className="level-right is-marginless">
               <span
@@ -21,6 +22,6 @@ const Loader = () => (
     </div>
   </div>
 );
+Loader.propTypes = { t: React.PropTypes.func.isRequired };
 
-
-export default Loader;
+export default translate('theme')(Loader);

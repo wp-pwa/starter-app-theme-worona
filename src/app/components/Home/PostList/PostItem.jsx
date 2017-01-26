@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, no-restricted-syntax, no-undef */
 import React from 'react';
 import formatDate from 'format-date';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ const CardImage = ({ featuredMedia, postId }) => {
 
     if (typeof responsiveImages !== 'undefined') {
       // we take the first image that is bigger than the Window Width.
-      for ( var i in responsiveImages ) {
+      for (const i in responsiveImages) {
         if (responsiveImages[i].width > window.innerWidth) {
           sourceUrl = responsiveImages[i].source_url;
           break;
