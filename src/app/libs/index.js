@@ -8,3 +8,6 @@ export const darkenColor = colorCode => {
   }
   return color;
 };
+
+export const blackOrWhite = colorCode =>
+  new Color(colorCode).contrast(new Color('white')) > 2.3 ? '#FFF' : '#000';
