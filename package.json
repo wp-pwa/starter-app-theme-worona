@@ -24,7 +24,8 @@
     "color": "^1.0.3",
     "font-awesome": "^4.7.0",
     "format-date": "^1.0.0",
-    "react-color": "^2.10.0"
+    "react-color": "^2.10.0",
+    "urllite": "^0.5.0"
   },
   "devDependencies": {
     "core-dashboard-worona": "1.2.30",

@@ -6,14 +6,14 @@ import NavBar from './NavBar';
 import Title from './Title';
 import ContentHtml from './ContentHtml';
 
-const Post = ({ post, chosenColor, isReady }) => (
+const Post = ({ post, chosenColor, isReady, siteUrl }) => (
   <div>
     <NavBar />
     {
       isReady && (
           <section className="section" style={{ paddingTop: '1rem' }}>
             <Title post={post} />
-            <ContentHtml html={post.content.rendered} linksColor={chosenColor} />
+            <ContentHtml html={post.content.rendered} linksColor={chosenColor} siteUrl={siteUrl} />
           </section>
         )
     }
@@ -32,6 +32,7 @@ const mapStateToProps = state => ({
   post: deps.selectors.getCurrentSingle(state),
   isReady: deps.selectors.isCurrentSingleReady(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
+  siteUrl: deps.selectorCreators.getSetting('generalSite', 'url')(state),
 });
 
 export default connect(mapStateToProps)(Post);
