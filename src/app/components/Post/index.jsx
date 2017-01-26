@@ -1,9 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import { connect } from 'react-redux';
-import cheerio from 'cheerio';
 import * as deps from '../../deps';
-import * as libs from '../../libs';
 import NavBar from './NavBar';
 import Title from './Title';
 import ContentHtml from './ContentHtml';
@@ -27,6 +25,7 @@ Post.propTypes = {
   post: React.PropTypes.shape({
     content: React.PropTypes.shape({ rendered: React.PropTypes.string }),
   }),
+  chosenColor: React.PropTypes.string,
 };
 
 const mapStateToProps = state => ({
