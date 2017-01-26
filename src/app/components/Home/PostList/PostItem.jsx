@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, no-restricted-syntax, no-undef */
 import React from 'react';
 import formatDate from 'format-date';
 import { connect } from 'react-redux';
@@ -7,46 +7,49 @@ import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import cn from 'classnames';
 import * as deps from '../../../deps';
+import * as libs from '../../../libs';
 import styles from './style.css';
 
-const CardImage = ({ featuredMedia, postId }) => {
-  let Card = null;
-  const display = typeof featuredMedia !== 'undefined';
+class CardImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { sourceUrl: this.props.featuredMedia.source_url };
+  }
 
-  if (display) {
-    // In case there are no responsive images
-    let sourceUrl = featuredMedia.source_url;
+  componentWillMount() {
+    if (
+      typeof this.props.featuredMedia !== 'undefined' &&
+        typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
+    ) {
+      // We turn the Object into an array sorted by width.
+      let responsiveImages = Object.values(this.props.featuredMedia.media_details.sizes);
+      responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
 
-    // We turn the Object into an array sorted by width.
-    let responsiveImages = Object.values(featuredMedia.media_details.sizes);
-    responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
-
-    if (typeof responsiveImages !== 'undefined') {
       // we take the first image that is bigger than the Window Width.
-      for ( var i in responsiveImages ) {
+      for (const i in responsiveImages) {
         if (responsiveImages[i].width > window.innerWidth) {
-          sourceUrl = responsiveImages[i].source_url;
+          this.setState({ sourceUrl: responsiveImages[i].source_url });
           break;
         }
       }
     }
-    Card = (
-      <Link to={`?p=${postId}`}>
+  }
+
+  render() {
+    return typeof this.props.featuredMedia !== 'undefined' ? <Link to={`?p=${this.props.postId}`}>
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={sourceUrl} alt={featuredMedia} />
+            <img src={this.state.sourceUrl} alt={this.props.featuredMedia.alt_text} />
           </figure>
         </div>
-      </Link>
-    );
+      </Link> : null;
   }
-  return Card;
-};
-
+}
 CardImage.propTypes = {
   featuredMedia: React.PropTypes.shape({
     source_url: React.PropTypes.string,
     alt_text: React.PropTypes.string,
+    media_details: React.PropTypes.object,
   }),
   postId: React.PropTypes.number.isRequired,
 };
@@ -68,7 +71,7 @@ let CardContent = (
               <span className="subtitle is-6 is-pulled-left is-marginless">
                 {categories.map(category => (
                   <span key={category.id}>
-                    <Link style={{ color: chosenColor }} to={`?cat=${category.id}`}>
+                    <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
                       #{category.name}
                     </Link>
                     {' '}
@@ -101,10 +104,7 @@ const mapStateToProps = state => ({
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
-CardContent = flow(
-  connect(mapStateToProps),
-  translate('theme'),
-)(CardContent);
+CardContent = flow(connect(mapStateToProps), translate('theme'))(CardContent);
 
 const PostItem = ({ post, author, featuredMedia, categories, displayFeaturedImage }) => (
   <div className="card is-fullwidth">

@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
+import cheerio from 'cheerio';
 import * as deps from '../../deps';
+import * as libs from '../../libs';
 import styles from './style.css';
 
 let NavBar = ({ goBack }) => (
@@ -27,9 +29,16 @@ let NavBar = ({ goBack }) => (
 
 NavBar.propTypes = { goBack: React.PropTypes.func };
 
-const MapNavBarStatetoProps = () => ({ goBack: deps.libs.goBack });
+const MapNavBarStatetoProps = state => ({ historyLength: deps.selectors.getHistoryLength(state) });
 
-NavBar = connect(MapNavBarStatetoProps)(NavBar);
+const mergeProps = ({ historyLength }) => ({
+  goBack() {
+    if (historyLength > 1) deps.libs.goBack();
+    else deps.libs.push('?');
+  },
+});
+
+NavBar = connect(MapNavBarStatetoProps, null, mergeProps)(NavBar);
 
 let Title = ({ post, categories, users, chosenColor, displayCategories, t }) => (
   <div className="content is-medium">
@@ -39,7 +48,10 @@ let Title = ({ post, categories, users, chosenColor, displayCategories, t }) => 
       {
         displayCategories && post.categories.map(category => (
             <span key={category}>
-              <Link style={{ color: chosenColor }} to={`?cat=${categories[category].id}`}>
+              <Link
+                style={{ color: libs.darkenColor(chosenColor) }}
+                to={`?cat=${categories[category].id}`}
+              >
                 #{categories[category].name}
               </Link>
               {' '}
@@ -68,29 +80,52 @@ const mapStateToTitleProps = state => ({
 
 Title = flow(connect(mapStateToTitleProps), translate('theme'))(Title);
 
-const Post = ({ post, isReady }) => (
-  <div>
-    <NavBar />
-    {
-      isReady && (
-          <section className="section" style={{ paddingTop: '1rem' }}>
-            <Title post={post} />
-            <div
-              style={{ overflow: 'hidden' }}
-              className="content is-medium"
-              dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-            />
-          </section>
-        )
-    }
-  </div>
-);
+class Post extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { html: '' };
+  }
 
-Post.propTypes = { isReady: React.PropTypes.bool, post: React.PropTypes.shape({}) };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.post) {
+      const $ = cheerio.load(nextProps.post.content.rendered);
+      $('a').attr('style', `color: ${libs.darkenColor(nextProps.chosenColor)};`);
+      this.setState({ html: $.html() });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        {
+          this.props.isReady && (
+              <section className="section" style={{ paddingTop: '1rem' }}>
+                <Title post={this.props.post} />
+                <div
+                  style={{ overflow: 'hidden' }}
+                  className="content is-medium"
+                  dangerouslySetInnerHTML={{ __html: this.state.html }}
+                />
+              </section>
+            )
+        }
+      </div>
+    );
+  }
+}
+Post.propTypes = {
+  isReady: React.PropTypes.bool,
+  post: React.PropTypes.shape({
+    content: React.PropTypes.shape({ rendered: React.PropTypes.string }),
+  }),
+  chosenColor: React.PropTypes.string,
+};
 
 const mapStateToProps = state => ({
   post: deps.selectors.getCurrentSingle(state),
   isReady: deps.selectors.isCurrentSingleReady(state),
+  chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
 });
 
 export default connect(mapStateToProps)(Post);
