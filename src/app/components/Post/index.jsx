@@ -6,7 +6,6 @@ import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import * as deps from '../../deps';
 import styles from './style.css';
-import { History } from 'react-router';
 
 let NavBar = ({ goBack }) => (
   <div className={styles.menuPost}>
