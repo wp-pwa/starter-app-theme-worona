@@ -6,6 +6,7 @@ import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import * as deps from '../../deps';
 import styles from './style.css';
+import { History } from 'react-router';
 
 let NavBar = ({ goBack }) => (
   <div className={styles.menuPost}>
@@ -27,9 +28,16 @@ let NavBar = ({ goBack }) => (
 
 NavBar.propTypes = { goBack: React.PropTypes.func };
 
-const MapNavBarStatetoProps = () => ({ goBack: deps.libs.goBack });
+const MapNavBarStatetoProps = state => ({ historyLength: deps.selectors.getHistoryLength(state) });
 
-NavBar = connect(MapNavBarStatetoProps)(NavBar);
+const mergeProps = ({ historyLength }) => ({
+  goBack() {
+    if (historyLength > 1) deps.libs.goBack();
+    else deps.libs.push('?');
+  },
+});
+
+NavBar = connect(MapNavBarStatetoProps, null, mergeProps)(NavBar);
 
 let Title = ({ post, categories, users, chosenColor, displayCategories, t }) => (
   <div className="content is-medium">

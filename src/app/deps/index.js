@@ -61,6 +61,9 @@ export const selectors = {
   get getURLQueries() {
     return dep('router', 'selectors', 'getURLQueries');
   },
+  get getHistoryLength() {
+    return dep('router', 'selectors', 'getHistoryLength');
+  },
 };
 
 export const actions = {
@@ -75,5 +78,8 @@ export const actions = {
 export const libs = {
   get goBack() {
     return dep('router', 'libs', 'goBack');
+  },
+  get push() {
+    return dep('router', 'libs', 'push');
   },
 };
