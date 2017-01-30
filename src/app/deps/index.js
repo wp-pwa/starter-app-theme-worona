@@ -79,6 +79,9 @@ export const actions = {
   get anotherPostsPageRequested() {
     return dep('connection', 'actions', 'anotherPostsPageRequested');
   },
+  get deepUrlVisited() {
+    return dep('router', 'actions', 'deepUrlVisited');
+  },
 };
 
 export const libs = {

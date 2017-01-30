@@ -6,14 +6,14 @@ import NavBar from './NavBar';
 import Title from './Title';
 import ContentHtml from './ContentHtml';
 
-const Post = ({ post, chosenColor, isReady, siteUrl }) => (
+const Post = ({ post, chosenColor, isReady }) => (
   <div>
     <NavBar />
     {
       isReady && (
           <section className="section" style={{ paddingTop: '1rem' }}>
             <Title post={post} />
-            <ContentHtml html={post.content.rendered} linksColor={chosenColor} siteUrl={siteUrl} />
+            <ContentHtml html={post.content.rendered} linksColor={chosenColor} />
           </section>
         )
     }
