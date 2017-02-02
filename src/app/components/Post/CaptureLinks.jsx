@@ -12,19 +12,6 @@ class CaptureLinks extends React.Component {
   }
 
   onClick(e) {
-    // Ignore canceled events, modified clicks, and right clicks.
-    if (e.defaultPrevented) {
-      return;
-    }
-
-    if (e.metaKey || e.ctrlKey || e.shiftKey) {
-      return;
-    }
-
-    if (e.button !== 0) {
-      return;
-    }
-
     // Get the <a> element.
     let el = e.target;
     while (el && el.nodeName !== 'A') {
@@ -36,37 +23,52 @@ class CaptureLinks extends React.Component {
       return;
     }
 
-    // Remove blur.
-    el.blur();
-
-    // Ignore the click if the element has a target.
-    if (el.target && el.target !== '_self') {
-      return;
-    }
-
-    // Ignore the click if it's a download link. (We use this method of
-    // detecting the presence of the attribute for old IE versions.)
-    if (el.attributes.download) {
-      return;
-    }
-
-    // Ignore 'rel="external"' links.
-    if (el.rel && /(?:^|\s+)external(?:\s+|$)/.test(el.rel)) {
-      return;
-    }
-
     // Use a regular expression to parse URLs instead of relying on the browser
     // to do it for us (because IE).
     const linkUrl = urllite(el.href);
     const siteUrl = urllite(this.props.siteUrl);
 
-    // Ignore links that don't share a host with ours.
-    if (linkUrl.host !== siteUrl.host) {
-      if (isCordova) {
-        // If we are not inside Cordova, do nothing.
+    // Remove blur.
+    el.blur();
+
+    if (!isCordova) {
+      // If we are not inside Cordova, do nothing in these cases:
+
+      // Ignore canceled events, modified clicks, and right clicks.
+      if (e.defaultPrevented) {
         return;
       }
-      // If we are inside Cordova, use navigator to open the external browser.
+
+      if (e.metaKey || e.ctrlKey || e.shiftKey) {
+        return;
+      }
+
+      if (e.button !== 0) {
+        return;
+      }
+
+      // Ignore the click if the element has a target.
+      if (el.target && el.target !== '_self') {
+        return;
+      }
+
+      // Ignore the click if it's a download link. (We use this method of
+      // detecting the presence of the attribute for old IE versions.)
+      if (el.attributes.download) {
+        return;
+      }
+
+      // Ignore 'rel="external"' links.
+      if (el.rel && /(?:^|\s+)external(?:\s+|$)/.test(el.rel)) {
+        return;
+      }
+
+      // Ignore links that don't share a host with ours.
+      if (linkUrl.host !== siteUrl.host) {
+        return;
+      }
+    } else if (linkUrl.host !== siteUrl.host) {
+      // If we are in Cordova and it's an external link use navigator to open the external browser.
       e.preventDefault();
       if (device.platform === 'Android') {
         navigator.app.loadUrl(linkUrl, { openExternal: true });
@@ -75,9 +77,8 @@ class CaptureLinks extends React.Component {
       }
     }
 
-    // Prevent :focus from sticking; preventDefault() stops blur in some browsers
+    // If it's an internal link.
     e.preventDefault();
-
     this.props.deepUrlVisited({ url: el.href });
   }
 
