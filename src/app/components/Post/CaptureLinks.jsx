@@ -71,9 +71,9 @@ class CaptureLinks extends React.Component {
       // If we are in Cordova and it's an external link use navigator to open the external browser.
       e.preventDefault();
       if (device.platform === 'Android') {
-        navigator.app.loadUrl(linkUrl, { openExternal: true });
+        navigator.app.loadUrl(el.href, { openExternal: true });
       } else {
-        window.open(linkUrl, '_system');
+        window.open(el.href, '_system');
       }
     }
 
