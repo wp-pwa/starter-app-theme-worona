@@ -1,4 +1,5 @@
 /* eslint-disable no-undef, jsx-a11y/no-static-element-interactions */
+import { isCordova } from 'worona-deps';
 import React from 'react';
 import { connect } from 'react-redux';
 import urllite from 'urllite';
@@ -35,6 +36,9 @@ class CaptureLinks extends React.Component {
       return;
     }
 
+    // Remove blur.
+    el.blur();
+
     // Ignore the click if the element has a target.
     if (el.target && el.target !== '_self') {
       return;
@@ -56,13 +60,22 @@ class CaptureLinks extends React.Component {
     const linkUrl = urllite(el.href);
     const siteUrl = urllite(this.props.siteUrl);
 
-    // Ignore links that don't share a protocol and host with ours.
+    // Ignore links that don't share a host with ours.
     if (linkUrl.host !== siteUrl.host) {
-      return;
+      if (isCordova) {
+        // If we are not inside Cordova, do nothing.
+        return;
+      }
+      // If we are inside Cordova, use navigator to open the external browser.
+      e.preventDefault();
+      if (device.platform === 'Android') {
+        navigator.app.loadUrl(linkUrl, { openExternal: true });
+      } else {
+        window.open(linkUrl, '_system');
+      }
     }
 
     // Prevent :focus from sticking; preventDefault() stops blur in some browsers
-    el.blur();
     e.preventDefault();
 
     this.props.deepUrlVisited({ url: el.href });
