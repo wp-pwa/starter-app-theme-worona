@@ -65,8 +65,8 @@ let CardContent = (
         <Link to={`?p=${postId}`}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {author && `${t('By')} `(
-              <span style={{ fontWeight: 500 }}>{author.name}</span>
+            {author && (
+              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>
             )}
           </p>
         </Link>
