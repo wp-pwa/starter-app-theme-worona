@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import { connect } from 'react-redux';
 import { flow } from 'lodash/fp';
@@ -37,7 +38,7 @@ class ScrollMenu extends React.Component {
                     chosenColor={chosenColor}
                     url={`?cat=${id}`}
                   >
-                    {categories[id].name}
+                    <div dangerouslySetInnerHTML={{ __html: categories[id].name }} />
                   </CatItem>
                 ))}
               </div> : <span className={styles.catItem} style={{ color: chosenColor }}>
