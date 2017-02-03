@@ -13,7 +13,7 @@ const PostList = ({ posts, results, isReady, users, media, displayFeaturedImage,
           <div key={id} className="column is-one-quarter">
             <PostItem
               post={posts[id]}
-              author={users[posts[id].author] || {}}
+              author={users[posts[id].author]}
               featuredMedia={media[posts[id].featured_media]}
               displayFeaturedImage={displayFeaturedImage}
               categories={posts[id].categories.map(catId => categories[catId])}

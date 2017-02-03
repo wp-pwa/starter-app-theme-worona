@@ -36,13 +36,15 @@ class CardImage extends React.Component {
   }
 
   render() {
-    return typeof this.props.featuredMedia !== 'undefined' ? <Link to={`?p=${this.props.postId}`}>
-        <div className="card-image">
-          <figure className="image is-4by3">
-            <img src={this.state.sourceUrl} alt={this.props.featuredMedia.alt_text} />
-          </figure>
-        </div>
-      </Link> : null;
+    return typeof this.props.featuredMedia !== 'undefined'
+      ? <Link to={`?p=${this.props.postId}`}>
+          <div className="card-image">
+            <figure className="image is-4by3">
+              <img src={this.state.sourceUrl} alt={this.props.featuredMedia.alt_text} />
+            </figure>
+          </div>
+        </Link>
+      : null;
   }
 }
 CardImage.propTypes = {
@@ -63,23 +65,22 @@ let CardContent = (
         <Link to={`?p=${postId}`}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {`${t('By')} `}<span style={{ fontWeight: 500 }}>{author.name}</span>
+            {author && `${t('By')} `(
+              <span style={{ fontWeight: 500 }}>{author.name}</span>
+            )}
           </p>
         </Link>
-        {
-          displayCategories && (
-              <span className="subtitle is-6 is-pulled-left is-marginless">
-                {categories.map(category => (
-                  <span key={category.id}>
-                    <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
-                      #{category.name}
-                    </Link>
-                    {' '}
-                  </span>
-                ))}
+        {displayCategories &&
+          <span className="subtitle is-6 is-pulled-left is-marginless">
+            {categories.map(category => (
+              <span key={category.id}>
+                <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
+                  #{category.name}
+                </Link>
+                {' '}
               </span>
-            )
-        }
+            ))}
+          </span>}
         <span className="subtitle is-6 is-pulled-right is-marginless">
           <small>{formatDate('{day}/{month}/{year}', new Date(date))}</small>
         </span>
