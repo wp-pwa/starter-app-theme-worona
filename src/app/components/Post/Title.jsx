@@ -11,8 +11,9 @@ const Title = ({ post, categories, users, chosenColor, displayCategories, t }) =
   <div className="content is-medium">
     <h1><div dangerouslySetInnerHTML={{ __html: post.title.rendered }} /></h1>
     <h6>
-      {`${t('By')} `}
-      <span style={{ fontWeight: 600 }}>{users[post.author] && users[post.author].name} </span>
+      {users[post.author] && `${t('By')} `(
+        <span style={{ fontWeight: 600 }}>{users[post.author].name} </span>
+      )}
       {displayCategories && post.categories.map(category => (
           <span key={category}>
             <Link
