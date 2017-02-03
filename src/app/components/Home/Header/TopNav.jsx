@@ -1,5 +1,4 @@
 import React from 'react';
-import Color from 'color';
 import { connect } from 'react-redux';
 import * as deps from '../../../deps';
 import * as libs from '../../../libs';
