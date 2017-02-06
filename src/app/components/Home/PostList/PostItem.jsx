@@ -13,14 +13,18 @@ import styles from './style.css';
 class CardImage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { sourceUrl: this.props.featuredMedia.source_url };
+    if (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined') {
+      this.state = { sourceUrl: this.props.featuredMedia.source_url };
+    } else {
+      this.state = { sourceUrl: 'undefined' };
+    }
   }
 
   componentWillMount() {
     if (
       typeof this.props.featuredMedia !== 'undefined' &&
         typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
-    ) {
+      ) {
       // We turn the Object into an array sorted by width.
       let responsiveImages = Object.values(this.props.featuredMedia.media_details.sizes);
       responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
@@ -36,7 +40,7 @@ class CardImage extends React.Component {
   }
 
   render() {
-    return typeof this.props.featuredMedia !== 'undefined'
+    return (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined' && typeof this.state.sourceUrl !== 'undefined')
       ? <Link to={`?p=${this.props.postId}`}>
           <div className="card-image">
             <figure className="image is-4by3">
