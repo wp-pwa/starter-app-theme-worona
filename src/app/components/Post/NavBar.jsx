@@ -5,19 +5,15 @@ import styles from './style.css';
 
 const NavBar = ({ goBack }) => (
   <div className={styles.menuPost}>
-    <nav className="level is-mobile">
-      <div className="level-left">
-        <div className="level-item">
-          <button
-            onClick={goBack}
-            className="icon is-medium"
-            style={{ color: '#363636', background: 'transparent', border: 'transparent' }}
-          >
-            <i className="fa fa-arrow-left" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </nav>
+    <div className={styles.backButton}>
+      <button
+        onClick={goBack}
+        className="icon is-medium"
+        style={{ padding: '0', color: '#363636', background: 'transparent', border: 'transparent' }}
+      >
+        <i className="fa fa-arrow-left" aria-hidden="true" />
+      </button>
+    </div>
   </div>
 );
 

@@ -1,8 +1,11 @@
 .menuPost {
   display: block;
   color: #404040;
-  padding: 1em;
   background-color: white;
+}
+
+.backButton {
+  margin: 10px 0 10px 10px;
 }
 
 :global .content figure {
