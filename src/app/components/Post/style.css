@@ -25,6 +25,11 @@
   font-size: 13px;
 }
 
+/* Center images */
+:global div.content.is-medium figure {
+  text-align: center;
+}
+
 /* Youtube videos */
 :global iframe {
     margin-left: auto;
