@@ -111,7 +111,7 @@ const mapStateToFormProps = state => {
       displayCategories: themeSettings.displayCategories,
       displayFeaturedImage: themeSettings.displayFeaturedImage,
     },
-    waiting: state.settings.savingSettings === 'starter-app-theme-worona',
+    waiting: deps.selectors.getSavingSettings(state) === 'starter-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
     chosenColor: state.theme.reduxForm.StarterThemeForm &&
       state.theme.reduxForm.StarterThemeForm.values &&

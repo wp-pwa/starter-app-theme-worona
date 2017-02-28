@@ -13,10 +13,11 @@ export const actions = {
 
 export const selectors = {
   get getSelectedSiteId() { return dep('router', 'selectors', 'getSelectedSiteId'); },
+  get getSavingSettings() { return dep('settings', 'selectors', 'getSavingSettings'); },
 };
 
 export const selectorCreators = {
-  get getSettingsCreator() { return dep('settings', 'selectorCreators', 'getSettingsCreator'); },
+  get getSettings() { return dep('settings', 'selectorCreators', 'getSettings'); },
 };
 
 export const types = {
