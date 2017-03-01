@@ -37,6 +37,9 @@ export const selectorCreators = {
   get isListReady() {
     return dep('connection', 'selectorCreators', 'isListReady');
   },
+  get isListLoading() {
+    return dep('connection', 'selectorCreators', 'isListLoading');
+  },
   get getNumberOfRetrievedPages() {
     return dep('connection', 'selectorCreators', 'getNumberOfRetrievedPages');
   },
