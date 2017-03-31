@@ -11,7 +11,7 @@ export function* saveDefaults(action) {
   );
 }
 
-export default function* testSagas() {
+export default function* starterSagas() {
   yield [
     takeEvery(
       action =>
