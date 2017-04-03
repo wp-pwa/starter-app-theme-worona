@@ -73,6 +73,9 @@ export const selectors = {
   get getHistoryLength() {
     return dep('router', 'selectors', 'getHistoryLength');
   },
+  get getContentType() {
+    return dep('router', 'selectors', 'getContentType');
+  },
 };
 
 export const actions = {
@@ -93,5 +96,11 @@ export const libs = {
   },
   get push() {
     return dep('router', 'libs', 'push');
+  },
+};
+
+export const types = {
+  get ROUTER_DID_CHANGE() {
+    return dep('router', 'types', 'ROUTER_DID_CHANGE');
   },
 };
