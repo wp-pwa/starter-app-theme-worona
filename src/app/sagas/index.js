@@ -7,6 +7,7 @@ import * as deps from '../deps';
 function* colorStatusBar() {
   const contentType = yield select(deps.selectors.getContentType);
   const color = yield select(deps.selectorCreators.getSetting('theme', 'chosenColor'));
+  console.log(contentType);
   if (contentType === 'Post' || contentType === 'Page') {
     // White background and dark text.
     StatusBar.backgroundColorByHexString('#FFF');
