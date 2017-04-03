@@ -12,18 +12,22 @@ function* colorStatusBar() {
     // White background and dark text.
     StatusBar.backgroundColorByHexString('#FFF');
     StatusBar.styleDefault();
+    console.log('to white');
   } else {
     // background of same color than app and text depending on blackOrWhite color.
     StatusBar.backgroundColorByHexString(color);
     if (blackOrWhite(color) === '#FFF') StatusBar.styleLightContent();
     else StatusBar.styleDefault();
+    console.log('to color');
   }
 }
 
 export default function* starterProSagas() {
   if (isIos && StatusBar) {
     StatusBar.overlaysWebView(false);
-    yield fork(colorStatusBar);
-    yield takeEvery(deps.types.ROUTER_DID_CHANGE, colorStatusBar);
+    yield [
+      fork(colorStatusBar),
+      takeEvery(deps.types.ROUTER_DID_CHANGE, colorStatusBar),
+    ];
   }
 }
