@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
@@ -17,12 +18,12 @@ const Title = ({ post, categories, users, chosenColor, displayCategories, t }) =
         {' '}
       {displayCategories && post.categories.map(category => (
           <span key={category}>
-            <deps.components.Link
+            <Link
               style={{ color: libs.darkenColor(chosenColor) }}
               to={`?cat=${categories[category].id}`}
             >
               #{categories[category].name}
-            </deps.components.Link>
+            </Link>
             {' '}
           </span>
         ))}

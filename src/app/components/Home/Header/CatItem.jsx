@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
 import * as libs from '../../../libs';
-import * as deps from '../../../deps';
 import styles from './style.css';
 
 const CatItem = ({ children, url, active, chosenColor }) => (
-  <deps.components.Link
+  <Link
     style={{
       color: libs.blackOrWhite(chosenColor),
       boxShadow: active ? `inset 0 -5px 0 0 ${libs.blackOrWhite(chosenColor)}` : '',
@@ -13,7 +13,7 @@ const CatItem = ({ children, url, active, chosenColor }) => (
     to={url}
   >
     {children}
-  </deps.components.Link>
+  </Link>
 );
 
 CatItem.propTypes = {
