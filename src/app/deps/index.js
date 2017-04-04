@@ -104,9 +104,3 @@ export const types = {
     return dep('router', 'types', 'ROUTER_DID_CHANGE');
   },
 };
-
-export const components = {
-  get Link() {
-    return dep('router', 'components', 'Link');
-  },
-};
