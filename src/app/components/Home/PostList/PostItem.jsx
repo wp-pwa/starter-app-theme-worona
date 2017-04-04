@@ -2,7 +2,6 @@
 import React from 'react';
 import formatDate from 'format-date';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { translate } from 'react-i18next';
 import { flow } from 'lodash/fp';
 import cn from 'classnames';
@@ -13,7 +12,10 @@ import styles from './style.css';
 class CardImage extends React.Component {
   constructor(props) {
     super(props);
-    if (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined') {
+    if (
+      typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined'
+    ) {
       this.state = { sourceUrl: this.props.featuredMedia.source_url };
     } else {
       this.state = { sourceUrl: 'undefined' };
@@ -23,8 +25,8 @@ class CardImage extends React.Component {
   componentWillMount() {
     if (
       typeof this.props.featuredMedia !== 'undefined' &&
-        typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
-      ) {
+      typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
+    ) {
       // We turn the Object into an array sorted by width.
       let responsiveImages = Object.values(this.props.featuredMedia.media_details.sizes);
       responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
@@ -40,14 +42,16 @@ class CardImage extends React.Component {
   }
 
   render() {
-    return (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined' && typeof this.state.sourceUrl !== 'undefined')
-      ? <Link to={`?p=${this.props.postId}`}>
+    return typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined' &&
+      typeof this.state.sourceUrl !== 'undefined'
+      ? <deps.components.Link to={`?p=${this.props.postId}`}>
           <div className="card-image">
             <figure className="image is-4by3">
               <img src={this.state.sourceUrl} alt={this.props.featuredMedia.alt_text} />
             </figure>
           </div>
-        </Link>
+        </deps.components.Link>
       : null;
   }
 }
@@ -66,21 +70,23 @@ let CardContent = (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
-        <Link to={`?p=${postId}`}>
+        <deps.components.Link to={`?p=${postId}`}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {author && (
-              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>
-            )}
+            {author &&
+              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>}
           </p>
-        </Link>
+        </deps.components.Link>
         {displayCategories &&
           <span className="subtitle is-6 is-pulled-left is-marginless">
             {categories.map(category => (
               <span key={category.id}>
-                <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
+                <deps.components.Link
+                  style={{ color: libs.darkenColor(chosenColor) }}
+                  to={`?cat=${category.id}`}
+                >
                   #{category.name}
-                </Link>
+                </deps.components.Link>
                 {' '}
               </span>
             ))}
