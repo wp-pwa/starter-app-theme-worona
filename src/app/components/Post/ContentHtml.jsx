@@ -6,7 +6,7 @@ import * as libs from '../../libs';
 
 const ContentHtml = ({ html, linksColor }) => {
   const $ = cheerio.load(html);
-  $('a').attr('style', `color: ${libs.darkenColor(linksColor)};`);
+  $('a').attr('style', `color: ${libs.darkenColor(linksColor)};`).attr('target', '_blank');
   return (
     <CaptureLinks>
       <div

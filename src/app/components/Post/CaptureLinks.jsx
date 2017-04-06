@@ -31,55 +31,25 @@ class CaptureLinks extends React.Component {
     // Remove blur.
     el.blur();
 
-    if (!isCordova) {
-      // If we are not inside Cordova, do nothing in these cases:
-
-      // Ignore canceled events, modified clicks, and right clicks.
-      if (e.defaultPrevented) {
-        return;
-      }
-
-      if (e.metaKey || e.ctrlKey || e.shiftKey) {
-        return;
-      }
-
-      if (e.button !== 0) {
-        return;
-      }
-
-      // Ignore the click if the element has a target.
-      if (el.target && el.target !== '_self') {
-        return;
-      }
-
-      // Ignore the click if it's a download link. (We use this method of
-      // detecting the presence of the attribute for old IE versions.)
-      if (el.attributes.download) {
-        return;
-      }
-
-      // Ignore 'rel="external"' links.
-      if (el.rel && /(?:^|\s+)external(?:\s+|$)/.test(el.rel)) {
-        return;
-      }
-
-      // Ignore links that don't share a host with ours.
-      if (linkUrl.host !== siteUrl.host) {
-        return;
-      }
-    } else if (linkUrl.host !== siteUrl.host) {
-      // If we are in Cordova and it's an external link use navigator to open the external browser.
-      e.preventDefault();
-      if (device.platform === 'Android') {
-        navigator.app.loadUrl(el.href, { openExternal: true });
-      } else {
-        window.open(el.href, '_system');
-      }
+    // Ignore canceled events, modified clicks, and right clicks.
+    if (e.defaultPrevented) {
+      return;
     }
 
-    // If it's an internal link.
-    e.preventDefault();
-    this.props.deepUrlVisited({ url: el.href });
+    if (linkUrl.host !== siteUrl.host) {
+      if (isCordova && device.platform === 'Android') {
+        e.preventDefault();
+        navigator.app.loadUrl(el.href, { openExternal: true });
+      } else if (isCordova && device.platform === 'iOS') {
+        e.preventDefault();
+        window.open(el.href, '_system');
+      } else {
+        return;
+      }
+    } else {
+      e.preventDefault();
+      this.props.deepUrlVisited({ url: el.href });
+    }
   }
 
   render() {
