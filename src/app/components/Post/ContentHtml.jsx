@@ -9,8 +9,11 @@ const ContentHtml = ({ html, linksColor }) => {
   $('a').attr('style', `color: ${libs.darkenColor(linksColor)};`).attr('target', '_blank');
   $('img').each((i, e) => {
     const src = $(e).attr('src');
-    if (src.startsWith('http://') && window.location.protocol === 'https:')
+    const srcset = $(e).attr('srcset');
+    if (src.startsWith('http://') && window.location.protocol === 'https:') {
       $(e).attr('src', `https://cors.worona.io/${src}`);
+      $(e).attr('srcset', srcset.replace(/http:\/\//g, 'https://cors.worona.io/http://'));
+    }
   });
   return (
     <CaptureLinks>
