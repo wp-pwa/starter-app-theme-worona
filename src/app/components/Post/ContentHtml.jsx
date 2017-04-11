@@ -11,8 +11,9 @@ const ContentHtml = ({ html, linksColor }) => {
     const src = $(e).attr('src');
     const srcset = $(e).attr('srcset');
     if (src.startsWith('http://') && window.location.protocol === 'https:') {
-      $(e).attr('src', `https://cors.worona.io/${src}`);
-      $(e).attr('srcset', srcset.replace(/http:\/\//g, 'https://cors.worona.io/http://'));
+      if (src) $(e).attr('src', `https://cors.worona.io/${src}`);
+      if (srcset)
+        $(e).attr('srcset', srcset.replace(/http:\/\//g, 'https://cors.worona.io/http://'));
     }
   });
   return (
