@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, no-undef */
 import React from 'react';
 import cheerio from 'cheerio';
 import CaptureLinks from './CaptureLinks';
@@ -7,6 +7,11 @@ import * as libs from '../../libs';
 const ContentHtml = ({ html, linksColor }) => {
   const $ = cheerio.load(html);
   $('a').attr('style', `color: ${libs.darkenColor(linksColor)};`).attr('target', '_blank');
+  $('img').each((i, e) => {
+    const src = $(e).attr('src');
+    if (src.startsWith('http://') && window.location.protocol === 'https:')
+      $(e).attr('src', `https://cors.worona.io/${src}`);
+  });
   return (
     <CaptureLinks>
       <div
