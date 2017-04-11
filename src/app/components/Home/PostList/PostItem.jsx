@@ -13,7 +13,10 @@ import styles from './style.css';
 class CardImage extends React.Component {
   constructor(props) {
     super(props);
-    if (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined') {
+    if (
+      typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined'
+    ) {
       this.state = { sourceUrl: this.props.featuredMedia.source_url };
     } else {
       this.state = { sourceUrl: 'undefined' };
@@ -23,8 +26,8 @@ class CardImage extends React.Component {
   componentWillMount() {
     if (
       typeof this.props.featuredMedia !== 'undefined' &&
-        typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
-      ) {
+      typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
+    ) {
       // We turn the Object into an array sorted by width.
       let responsiveImages = Object.values(this.props.featuredMedia.media_details.sizes);
       responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
@@ -40,7 +43,9 @@ class CardImage extends React.Component {
   }
 
   render() {
-    return (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined' && typeof this.state.sourceUrl !== 'undefined')
+    return typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined' &&
+      typeof this.state.sourceUrl !== 'undefined'
       ? <Link to={`?p=${this.props.postId}`}>
           <div className="card-image">
             <figure className="image is-4by3">
@@ -69,9 +74,8 @@ let CardContent = (
         <Link to={`?p=${postId}`}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
           <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {author && (
-              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>
-            )}
+            {author &&
+              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>}
           </p>
         </Link>
         {displayCategories &&
