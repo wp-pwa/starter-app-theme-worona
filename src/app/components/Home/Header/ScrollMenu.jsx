@@ -9,7 +9,7 @@ import styles from './style.css';
 
 class ScrollMenu extends React.Component {
   componentWillMount() {
-    this.props.requestAllCategories({ params: { per_page: 99 } });
+    this.props.requestAllCategories();
   }
 
   render() {
@@ -26,8 +26,8 @@ class ScrollMenu extends React.Component {
     if (typeof displayCategories !== 'undefined' && displayCategories) {
       scrollMenu = (
         <div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
-          {
-            isReady ? <div>
+          {isReady
+            ? <div>
                 <CatItem key={0} active={!currentCategory} chosenColor={chosenColor} url={''}>
                   {t('Home')}
                 </CatItem>
@@ -41,10 +41,10 @@ class ScrollMenu extends React.Component {
                     <div dangerouslySetInnerHTML={{ __html: categories[id].name }} />
                   </CatItem>
                 ))}
-              </div> : <span className={styles.catItem} style={{ color: chosenColor }}>
+              </div>
+            : <span className={styles.catItem} style={{ color: chosenColor }}>
                 {'\u00A0'}
-              </span>
-          }
+              </span>}
         </div>
       );
     }
@@ -74,10 +74,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   requestAllCategories: () =>
-    dispatch(deps.actions.newCategoriesListRequested({ name: 'allCategories' })),
+    dispatch(
+      deps.actions.newCategoriesListRequested({ name: 'allCategories', params: { per_page: 99 } })
+    ),
 });
 
-export default flow(
-  connect(mapStateToProps, mapDispatchToProps),
-  translate('theme'),
-)(ScrollMenu);
+export default flow(connect(mapStateToProps, mapDispatchToProps), translate('theme'))(ScrollMenu);
