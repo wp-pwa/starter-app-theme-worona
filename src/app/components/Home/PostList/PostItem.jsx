@@ -49,7 +49,11 @@ class CardImage extends React.Component {
       ? <Link to={`?p=${this.props.postId}`}>
           <div className="card-image">
             <figure className="image is-4by3">
-              <img src={this.state.sourceUrl} alt={this.props.featuredMedia.alt_text} />
+              <img
+                style={{ objectFit: 'cover' }}
+                src={this.state.sourceUrl}
+                alt={this.props.featuredMedia.alt_text}
+              />
             </figure>
           </div>
         </Link>
