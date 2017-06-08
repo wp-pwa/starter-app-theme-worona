@@ -30,7 +30,8 @@ const Title = ({ post, categories, users, chosenColor, displayCategories, t }) =
               style={{ color: libs.darkenColor(chosenColor) }}
               to={`?cat=${categories[category].id}`}
             >
-              #{categories[category].name}
+              {'#'}
+              <span dangerouslySetInnerHTML={{ __html: categories[category].name }} />
             </Link>
             {' '}
           </span>
