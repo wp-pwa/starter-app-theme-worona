@@ -61,6 +61,9 @@ export const selectors = {
   get getMediaEntities() {
     return dep('connection', 'selectors', 'getMediaEntities');
   },
+  get getTagsEntities() {
+    return dep('connection', 'selectors', 'getTagsEntities');
+  },
   get getCurrentSingle() {
     return dep('connection', 'selectors', 'getCurrentSingle');
   },
@@ -75,6 +78,9 @@ export const selectors = {
   },
   get getContentType() {
     return dep('router', 'selectors', 'getContentType');
+  },
+  get getContentId() {
+    return dep('router', 'selectors', 'getContentId');
   },
 };
 

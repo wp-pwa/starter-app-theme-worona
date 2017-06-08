@@ -1,3 +1,35 @@
 .postList{
   padding:10px;
 }
+
+.listHeader {
+  padding-top: 10px;
+  padding-bottom: 2px;
+  font-size: 1.4em;
+}
+
+.authorBio {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorAvatar {
+  border-radius: 50%;
+  box-shadow: 1px 2px 2px 0 #666;
+}
+
+.authorName {
+  font-size: 1.5em;
+  margin-top: 7px;
+}
+
+.authorDescription {
+  font-size: 1.1em;
+  padding-top: 5px;
+  width: 80vw;
+  overflow: hidden;
+}
