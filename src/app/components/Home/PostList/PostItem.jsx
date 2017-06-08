@@ -77,11 +77,22 @@ let CardContent = (
       <div className="media-content">
         <Link to={`?p=${postId}`}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
-          <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {author &&
-              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>}
-          </p>
         </Link>
+        <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
+          {author &&
+            <span>
+              {t('By')}{' '}
+              <span style={{ fontWeight: 500 }}>
+                <Link
+                  style={{ color: libs.darkenColor(chosenColor) }}
+                  to={`?author=${author.id}`}
+                >
+                  {author.name}
+                </Link>
+              </span>
+            </span>
+          }
+        </p>
         {displayCategories &&
           <span className="subtitle is-6 is-pulled-left is-marginless">
             {categories.map(category => (
