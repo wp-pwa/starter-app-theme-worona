@@ -5,15 +5,17 @@ import styles from './style.css';
 
 const ListHeader = ({ contentType, contentId, users, categories, tags }) => {
   if (contentType === 'Category' && categories[contentId]) return (
-    <h1 className={styles.listHeader}>
-      {categories[contentId].name}
-    </h1>
+    <h1
+      className={styles.listHeader}
+      dangerouslySetInnerHTML={{ __html: categories[contentId].name }}
+    />
   );
 
   if (contentType === 'Tag' && tags[contentId]) return (
-    <h1 className={styles.listHeader}>
-      {tags[contentId].name}
-    </h1>
+    <h1
+      className={styles.listHeader}
+      dangerouslySetInnerHTML={{ __html: tags[contentId].name }}
+    />
   );
 
   if (contentType === 'Author' && users[contentId]) {

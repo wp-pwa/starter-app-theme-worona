@@ -98,7 +98,8 @@ let CardContent = (
             {categories.map(category => (
               <span key={category.id}>
                 <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
-                  #{category.name}
+                  {'#'}
+                  <span dangerouslySetInnerHTML={{ __html: category.name }} />
                 </Link>
                 {' '}
               </span>
