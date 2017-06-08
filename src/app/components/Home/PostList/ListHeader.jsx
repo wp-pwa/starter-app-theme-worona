@@ -1,5 +1,6 @@
+/* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react';
-// import AuthorBio from './AuthorBio';
+import CaptureLinks from '../../Post/CaptureLinks';
 import styles from './style.css';
 
 const ListHeader = ({ contentType, contentId, users, categories, tags }) => {
@@ -28,9 +29,12 @@ const ListHeader = ({ contentType, contentId, users, categories, tags }) => {
         <h1 className={styles.authorName}>
           {name}
         </h1>
-        <p className={styles.authorDescription}>
-          {description}
-        </p>
+        <CaptureLinks>
+          <p
+            className={styles.authorDescription}
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        </CaptureLinks>
       </div>
     );
   }
