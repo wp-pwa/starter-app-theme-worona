@@ -21,6 +21,8 @@ class ScrollMenu extends React.Component {
       chosenColor,
       displayCategories,
       currentCategory,
+      currentTag,
+      currentAuthor,
       t,
     } = this.props;
     if (typeof displayCategories !== 'undefined' && displayCategories) {
@@ -28,7 +30,7 @@ class ScrollMenu extends React.Component {
         <div className={styles.scrollMenu} style={{ backgroundColor: chosenColor }}>
           {isReady
             ? <div>
-                <CatItem key={0} active={!currentCategory} chosenColor={chosenColor} url={''}>
+                <CatItem key={0} active={!currentCategory && !currentTag && !currentAuthor} chosenColor={chosenColor} url={''}>
                   {t('Home')}
                 </CatItem>
                 {result.map(id => (
@@ -60,6 +62,8 @@ ScrollMenu.propTypes = {
   displayCategories: React.PropTypes.bool,
   requestAllCategories: React.PropTypes.func,
   currentCategory: React.PropTypes.number,
+  currentTag: React.PropTypes.number,
+  currentAuthor: React.PropTypes.number,
   t: React.PropTypes.func.isRequired,
 };
 
@@ -70,6 +74,8 @@ const mapStateToProps = state => ({
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
   currentCategory: parseInt(deps.selectors.getURLQueries(state).cat, 10),
+  currentTag: parseInt(deps.selectors.getURLQueries(state).tag, 10),
+  currentAuthor: parseInt(deps.selectors.getURLQueries(state).author, 10),
 });
 
 const mapDispatchToProps = dispatch => ({
