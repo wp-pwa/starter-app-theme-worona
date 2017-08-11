@@ -1,0 +1,36 @@
+.menuWrapper{
+  top: 0;
+  width: 100%;
+}
+
+.whiteText{
+  color:white;
+}
+
+.headMenu{
+  display: block;
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.scrollMenu {
+  overflow: auto;
+  white-space: nowrap;
+  text-align: center;
+  font-size: medium;
+}
+
+.catItem {
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
